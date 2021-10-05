@@ -77,6 +77,9 @@ a =
     @test length(sstr) == 3 && sstr[1] == "Advanced" && sstr[2] == "scientific" && sstr[3] == "computing"
 
     # Now things will start getting a bit (just a bit) harder
+    # If it's useful to write a `for` loop, feel free to look ahead to https://en.wikibooks.org/wiki/Introducing_Julia/Controlling_the_flow#For_loops_and_iteration
+    # (You're not restricted to use the subset of things assigned, you can use any "built-in" Julia construct.
+    #  But don't use external packages.)
 
     # Alphabetize the words in this string, omitting any that contain a 'u'
     # Do not type the answer directly, generate it by exploiting Julia's string-manipulation functions
@@ -84,12 +87,11 @@ a =
     aanimals =  # feel free to use multiple lines to solve this; `aanimals` should hold your final answer
     @test aanimals == ["antelope", "cat", "chimp", "dog", "feline", "salamander"]
 
-    # Compute the sum of the ascii codes in animals, excluding spaces
+    # Compute the sum of the ascii codes in `animals`, excluding spaces
     sascii =
     @test sascii == 5257
 
     # What is the most common letter, excluding spaces, in `animals` above?
-    # If it's useful to write a `for` loop, feel free to look ahead to https://en.wikibooks.org/wiki/Introducing_Julia/Controlling_the_flow#For_loops_and_iteration
     d =     # this variable should be a dictionary
     mostcommon =    # compute this from `d`
     @test keytype(d) == Char && valtype(d) == Int
