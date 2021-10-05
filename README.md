@@ -10,3 +10,5 @@ Markdown files using a script with contents
     pandoc -V colorlinks --highlight-style zenburn $1.md -o $1.pdf
 
 Example: `buildmd setup` where the script above is called `buildmd`.
+
+Course videos will be hosted in my YouTube account in a dedicated playlist: https://www.youtube.com/playlist?list=PL-G47MxHVTewUm5ywggLvmbUCNOD2RbKA
