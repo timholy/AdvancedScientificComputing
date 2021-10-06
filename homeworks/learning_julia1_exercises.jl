@@ -19,6 +19,13 @@
 #     @test length(a) == 2 && a[1] == 1 && a[2] == 7
 #
 # Ideally, running the test file passes all tests.
+#
+# Also, it may be helpful to note you can comment out a block of code using matching `#=`, `=#`, but
+# in VS Code it's often just as easy to select the whole range and use Ctrl-/ (⌘/ on Mac) to toggle between
+# commented and uncommented. A good working strategy is to start by commenting out all the tests and then
+# uncomment them one-by-one as you address them. That way, you can run the test script for each new test
+# and check whether all work so far.
+
 
 using Test
 
@@ -78,8 +85,7 @@ a =
 
     # Now things will start getting a bit (just a bit) harder
     # If it's useful to write a `for` loop, feel free to look ahead to https://en.wikibooks.org/wiki/Introducing_Julia/Controlling_the_flow#For_loops_and_iteration
-    # (You're not restricted to use the subset of things assigned, you can use any "built-in" Julia construct.
-    #  But don't use external packages.)
+    # Some problems can be solved in a single line using a comprehension or generator, https://en.wikibooks.org/wiki/Introducing_Julia/Controlling_the_flow#Comprehensions
 
     # Alphabetize the words in this string, omitting any that contain a 'u'
     # Do not type the answer directly, generate it by exploiting Julia's string-manipulation functions
