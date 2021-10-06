@@ -13,9 +13,9 @@ The [learning page](https://julialang.org/learning/) lists many resources for le
 - for experienced programmers, [the wiki](https://en.wikibooks.org/wiki/Introducing_Julia) seems to be a fairly good blend of didactic and practical material presented in a compact, efficient manner.  I recommend this as your default source.  Its main weakness is that it's not completely "linear" so you may need to read other sections to understand some of the points in the section you're studying.
 - if you need a little more systematic explanation, [Think Julia](https://benlauwens.github.io/ThinkJulia.jl/latest/book.html) provides a more polished experience at the expense of being longer
 - the [manual](https://docs.julialang.org/en/v1/) is pretty good and the most up-to-date of all of these.  While many chapters read well, a few have very high expectations (you almost need a computer science degree to read a few of them).
-- since all of you know at least one other language, the [Noteworthy differences page](https://docs.julialang.org/en/v1/manual/noteworthy-differences/) of the manual may help you get up to speed quickly
+- since all of you know at least one other language, the [Noteworthy differences page](https://docs.julialang.org/en/v1/manual/noteworthy-differences/) of the manual may help you get up to speed quickly.
 
-## Reading for week 1:
+## Reading for week 1
 
 We'll mostly read the wiki (out of its default order, and with omission of some chapters).  A close second choice would be the corresponding manual chapters.
 
@@ -32,6 +32,8 @@ In the wiki:
 - [Arrays and tuples](https://en.wikibooks.org/wiki/Introducing_Julia/Arrays_and_tuples)
 - [Strings and characters](https://en.wikibooks.org/wiki/Introducing_Julia/Strings_and_characters)
 - [Dictionaries and sets](https://en.wikibooks.org/wiki/Introducing_Julia/Dictionaries_and_sets)
+- [Controlling the flow](https://en.wikibooks.org/wiki/Introducing_Julia/Controlling_the_flow). Particularly useful on the first homework are the parts on `for` loops, comprehensions, and generators.
+- **as needed** [Frequently asked questions](https://docs.julialang.org/en/v1/manual/faq/) might contain the answer to something that's bothering you. Also see the resources on the [community page](https://julialang.org/community/).
 
 ## Problems
 
@@ -54,3 +56,6 @@ Answers here should be pasted into the Markdown file.  If you need an introducti
 
 The remaining homework problems are in a separate file, `learning_julia1_exercises.jl`.
 This file starts with a comment at the top and you will fill in the details. If you run this file with `include` or hit the "play" button in the upper right corner in VS Code, when done you should pass all tests.
+
+You're not restricted to use the subset of things assigned, you can use any "built-in" Julia construct.
+But don't use external packages that do almost all the work for you, unless instructed by the problem.

@@ -190,4 +190,9 @@ using Test
     @test_throws MethodError f("hello")
     @test_throws MethodError gaussian_closure("hello", 5)
     @test_throws MethodError gaussian_closure(2, [5])
+
+    # Bonus points! (No need to turn anything in)
+    # - make `Gaussian(3, 5.0)` work. Read about `promote`.
+    # - make `Gaussian(3.0, 5.0)` print as `Gaussian(μ=3.0, σ=5.0)` and define an additional kwarg-constructor,
+    #   with default values of 0 and 1 for `μ` and `σ`, respectively.
 end
