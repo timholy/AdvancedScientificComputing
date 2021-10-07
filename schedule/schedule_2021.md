@@ -16,7 +16,7 @@ This course is aimed at people who are comfortable in at least one programming l
 
 All sessions will run on Mondays and Wednesdays from 10am-11:30am.  There is a two week gap between the first session and the next to allow participants some time to start getting comfortable with Julia.
 
-1. Oct. 4: Introduction to the course: "why Julia?" and a brief tour
+1. Oct. 4: Introduction to the course: "why Julia?" and a brief tour: [lecture materials](../lectures/intro/intro-julia.ipynb), [video](https://www.youtube.com/watch?v=x4oi0IKf52w&list=PL-G47MxHVTewUm5ywggLvmbUCNOD2RbKA&index=2), and [homework1](../homeworks/learning_julia1.md) and [homework2](../homeworks/learning_julia1.md). The two week gap between the first lecture and the remainder of the course is to allow participants to learn and become comfortable with Julia.
 2. Oct. 18: Git and GitHub
 3. Oct. 20: Testing & principles of design
 4. Oct. 25: Continuous integration, documentation, package versioning, and releases
