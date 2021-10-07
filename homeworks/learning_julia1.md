@@ -23,12 +23,12 @@ In the wiki:
 
 - [The REPL](https://en.wikibooks.org/wiki/Introducing_Julia/The_REPL)
 - [Running code in VS Code](https://www.julia-vscode.org/docs/stable/userguide/runningcode/) (sadly, the documentation for the Julia VS Code extension is very incomplete, but this particular page is useful)
-- [Modules and packages](https://en.wikibooks.org/wiki/Introducing_Julia/Modules_and_packages). You'll need & want a more thorough grounding in Julia packages, so also read:
+- Modules and packages:
+  + [Intro to modules and packages](https://en.wikibooks.org/wiki/Introducing_Julia/Modules_and_packages)
+  + [Pkg: getting started](https://pkgdocs.julialang.org/v1.6/getting-started/)
+  + [Pkg: managing packages](https://pkgdocs.julialang.org/v1.6/managing-packages/)
 
-  + [Getting started](https://pkgdocs.julialang.org/v1.6/getting-started/)
-  + [Managing packages](https://pkgdocs.julialang.org/v1.6/managing-packages/)
-
-  **Pro tip**: those documentation packages were generated with [Documenter.jl](https://juliadocs.github.io/Documenter.jl/stable/), which we'll learn to use in the course. Importantly, all of the pages it produces have a little "Version" indicator in the lower left. For `Pkg`, make sure the version matches your Julia version (1.6).  In other cases it should match your package version (see `Pkg.status` or `pkg> status`).
+  **Pro tip**: the two `Pkg` documentation pages were generated with [Documenter.jl](https://juliadocs.github.io/Documenter.jl/stable/), which we'll learn to use in the course. Importantly, all of the pages it produces have a little "Version" indicator in the lower left. For `Pkg`, make sure the version matches your Julia version (`Base.VERSION`).  If you're reading documentation on a specific package, it should match the package version you have installed (see `Pkg.status` or `pkg> status`).
 - [Arrays and tuples](https://en.wikibooks.org/wiki/Introducing_Julia/Arrays_and_tuples)
 - [Strings and characters](https://en.wikibooks.org/wiki/Introducing_Julia/Strings_and_characters)
 - [Dictionaries and sets](https://en.wikibooks.org/wiki/Introducing_Julia/Dictionaries_and_sets)
