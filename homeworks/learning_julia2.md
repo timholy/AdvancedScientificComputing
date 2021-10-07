@@ -19,8 +19,6 @@ This week, reading will be from a mix of the wiki and the manual:
 
 As before, if these are confusing feel free to check out other sources; also appreciated is feedback about what sources worked for you; whether all, some, or none of the reading was useful; and specific points that you found confusing.
 
-When you start working on a problem, sometimes it's useful to have models.
-
 Additionally, a few workflow tips:
 
 - **Debugging**: `@show x` will print `x = 7` if `x` has been assigned the value 7.  This can be very handy when debugging more complicated programs, particularly inside a function where a stream of values printed to the REPL may not be very meaningful unless you know the correspondence between printed values and particular variables.
