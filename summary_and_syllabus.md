@@ -9,7 +9,7 @@ This course is aimed at people who are comfortable in at least one programming l
 # Syllabus (3 weeks, 6 sessions)
 
 1. Introduction to the course: "why Julia?" and a brief tour
-2. Git and GitHub
+2. Julia packages, Git, and GitHub
 3. Testing & principles of design
 4. Continuous integration, documentation, package versioning, and releases
 5. High performance computing on your laptop I: understanding and measuring performance
