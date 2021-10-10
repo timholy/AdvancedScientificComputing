@@ -52,5 +52,5 @@ Answers here should be pasted into the Markdown file.  If you need an introducti
 
 ### Auto-tested problems
 
-The remaining homework problems are in a separate file, `learning_julia1_exercises.jl`.
+The remaining homework problems are in a separate file, [`learning_julia1_exercises.jl`](learning_julia1_exercises.jl).
 This file starts with a comment at the top and you will fill in the details. If you run this file with `include` or hit the "play" button in the upper right corner in VS Code, when done you should pass all tests.
