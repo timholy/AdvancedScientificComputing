@@ -27,4 +27,4 @@ Additionally, a few workflow tips:
 
 # Assignment for week 2
 
-The entire assignment is in the associated `learning_julia2_exercises.jl` on Canvas or GitHub.
+The entire assignment is in the associated [`learning_julia2_exercises.jl`](learning_julia2_exercises.jl).
