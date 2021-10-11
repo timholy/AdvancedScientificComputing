@@ -16,9 +16,9 @@
    id="svg8"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
    sodipodi:docname="smallgraph.svg"
-   inkscape:export-filename="/home/tim/Documents/teaching/coding/2021/homeworks/smallgraph.png"
-   inkscape:export-xdpi="150"
-   inkscape:export-ydpi="150">
+   inkscape:export-filename="/home/tim/Documents/teaching/scicomputing/homeworks/smallgraph.png"
+   inkscape:export-xdpi="150.21242"
+   inkscape:export-ydpi="150.21242">
   <defs
      id="defs2">
     <marker
@@ -123,9 +123,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.959798"
-     inkscape:cx="246.23414"
-     inkscape:cy="107.2989"
+     inkscape:zoom="4.1602018"
+     inkscape:cx="144.10359"
+     inkscape:cy="78.454141"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
