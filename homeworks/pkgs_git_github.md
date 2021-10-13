@@ -8,7 +8,9 @@ output: pdf_document
 
 # Sources for learning
 
-`Git` is sophisticated and can be daunting. An excellent (but long) resource is [The Git Book](https://git-scm.com/book/en/v2).
+*Optional*: the [Open source initiative](https://opensource.org/licenses) is an approachable set of resources for questions about licenses commonly used in open-source projects.
+
+*Optional*: `git` is sophisticated and can be daunting. An excellent (but long) resource is [The Git Book](https://git-scm.com/book/en/v2).
 The most commonly-needed chapters are 1-3 and 6-8. There are also many online tutorials; one from [atlassian](https://www.atlassian.com/git) is widely appreciated. GitHub's [tutorials](https://github.com/git-guides/) are also good.
 Finally, you can find a selection of videos on YouTube just by searching for `git`.
 Many of these seem excellent, and there are so many good ones that I won't pick out any `git`-specific videos in particular.
@@ -19,10 +21,10 @@ You will find that different tutorials will train you in different tools; some f
 However, in this nanocourse, many of you will probably we able to get by using the git support built into VS Code.
 If you really get into trouble, the command-line or a more sophisticated graphical client is always there for you.
 
-Julia packages are best started and cloned from within Julia itself.
+*Required*: Julia packages are best started and cloned from within Julia itself.
 Remember that the Pkg.jl documentation (see the previous session) is good for general package-management questions,
 including when you want to contribute to an existing package.
-When starting your own package, the [PkgTemplates README](https://github.com/invenia/PkgTemplates.jl) and [documentation](https://invenia.github.io/PkgTemplates.jl/stable/user/) is a thorough guide to your options.
+When starting your own package, the [PkgTemplates README](https://github.com/invenia/PkgTemplates.jl) and [documentation](https://invenia.github.io/PkgTemplates.jl/stable/user/) are thorough guides to your options.
 
 # Homework
 
@@ -85,16 +87,14 @@ there is nothing more you need to turn in.
 ### Set up a corresponding blank repository on GitHub
 
 Log in to your GitHub account (if you aren't already), and near the upper right you should see a `+`. Click it and select "New repository."
-Leave it on "No template" (PkgTemplates has done all that for us), enter `DemoPackageTEH.jl` for the package name (note the additional `.jl` ending, a convention that makes Julia packages more searchable), select `Public`, and then click `Create repository`.
-
-Leave this window open in case you need to refer to it.
+Leave it on "No template" (PkgTemplates has done all that for us), enter `DemoPackageTEH.jl` for the package name (note the additional `.jl` ending, a convention that makes Julia packages more searchable), select `Public`, and then click `Create repository`.https://opensource.org/licenses
 
 ### Sync the package on your computer to GitHub
 
 Start VS Code and open the folder of your new package. (For the message above, that would be `/home/tim/.julia/dev/DemoPackageTEH`.)
 At the lower left you should see the `git` icon and the name of your default branch, `main`:
 
-![The active branch](figures/vscode_branch.png)
+![The active branch](figures_pkgs_git_github/vscode_branch.png)
 
 Click the little "push up to cloud" icon; it should push the template that PkgTemplates created for you up to GitHub. Most likely you will see the web page update and display the files and README. Click on the `commits` button TODO screenshot
 
@@ -122,7 +122,7 @@ the expected greeting.
 Despite that, if you did this within the VS Code session that you opened on the `DemoPackageTEH` folder, the above should have worked.
 Why? Down on the bottom of the screen, you should see something like this:
 
-![Current environment](figures/demo_env.png)
+![Current environment](figures_pkgs_git_github/demo_env.png)
 
 By opening VS Code on your project folder, the Julia extension also set you up with the environment of the package. You can see what packages are in that environment by entering `pkg>` mode and typing `status`. (The answer: not much! Your new package does not yet depend on other packages.)
 
@@ -130,11 +130,11 @@ By opening VS Code on your project folder, the Julia extension also set you up w
 
 Click on the "Source control" icon:
 
-![VS Code Source Control](figures/vscode_srcctrl.png)
+![VS Code Source Control](figures_pkgs_git_github/vscode_srcctrl.png)
 
 after which you should see something like this:
 
-![VS Code changes](figures/vscode_changes.png)
+![VS Code changes](figures_pkgs_git_github/vscode_changes.png)
 
 Click on the file and examine the side-by-side *diff* showing your changes.
 Click on the `+` to *stage* your changes. Once you have staged the complete set of changes you want to commit, enter a *commit message* and click the check.
