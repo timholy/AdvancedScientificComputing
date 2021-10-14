@@ -292,7 +292,7 @@ We're setting the stage here for a (deliberate) eventual merge conflict. **Do no
 
 ### Provide a review of your partner's PR
 
-Navigate on GitHub to your own package repository page; you should see that it has one pending PR. (Congratulations! Your work is attracting interest 😃).
+Navigate on GitHub to your own package repository page; you should see that it has one pending PR. (Congratulations! Your work is attracting interest.)
 Open the PR, read the post which introduces the PR (often this provides important context), and then click on "Files changed" and browse the changes.
 You'll see red and green coloration for the changes, which in this case should be for just a single line.
 
