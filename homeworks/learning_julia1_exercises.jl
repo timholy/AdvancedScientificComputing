@@ -46,7 +46,7 @@ a =
     # Create a vector of `String`s that has 3 undefined elements, then make the middle one equal to "Julia"
     vstr =
     # you will need one more line here
-    @test length(vstr) == 3 && eltype(vstr) == String && !isdefined(vstr, 1) && !isdefined(vstr, 3) && vstr[2] == "Julia"
+    @test length(vstr) == 3 && eltype(vstr) == String && !isassigned(vstr, 1) && !isassigned(vstr, 3) && vstr[2] == "Julia"
 
     # Create two ranges, `row` and `col`: row should go from 1 to 3 (integers) and `col` should contain the even numbers between 2 and 8.
     # Use broadcasting to form a matrix of their product.
