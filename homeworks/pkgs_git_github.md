@@ -43,19 +43,26 @@ At a minimum, notify your instructor and your partner of your account name (and 
 [2FA](https://authy.com/what-is-2fa/) is highly recommended but probably not required for this course, so setting it up is optional.
 (Membership in many of Julia's GitHub organizations requires 2FA to be activated, so if you become an active contributor and get invited to join such an organization, it will become essential.)
 
+Eventually, you might find it convenient to take additional configuration steps, like adding an [SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh). (Having an SSH key can mean fewer times you need to enter your password.) But that's not necessary for this class, and unless you're completely undaunted by steps like these it's best to wait until you need/want to.
+
+If you get stuck, see [GitHub's documentation](https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account
+).
+
 ### Install & configure git (one-time setup)
 
 Particularly if you're on Mac or Linux, you may already have `git`; try typing `git version` in a terminal and see if it responds with a version number.
 If you need to install git, [these instructions](https://github.com/git-guides/install-git) may be helpful.
 
 Once `git` is installed, you likely need to do a a one-time configuration: from your terminal (or the Git Bash terminal), enter
-your credentials, replacing "John Doe" with your name and similarly for other settings.
+your credentials as shown below, replacing "John Doe" with your name and similarly for other settings.
 
 ```sh
 git config --global user.name "John Doe"
 git config --global user.email johndoe@example.com
 git config --global github.user johndoe12345
 ```
+
+If `git` does things that annoy you (e.g., open up a strange editor you don't understand), see [more configuration options](https://www.git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup) or [the complete details](https://www.git-scm.com/book/en/v2/Customizing-Git-Git-Configuration). Collaborations (and perhaps partners for this assignment? I am unsure) between Windows and non-Windows users may want to set your `core.autocrlf` option as described in the latter page.
 
 ## Practice with a demo package
 
@@ -80,14 +87,19 @@ there is nothing more you need to turn in.
 
 4. Create the package: `tpl("DemoPackageTEH")` (throughout, use whatever name you agreed on with your partner). If all goes well, you should see a message that ends like
 
+    ```julia
     [ Info: New package is at /home/tim/.julia/dev/DemoPackageTEH
+    ```
 
    It's worth noting or remembering this location, since that's where you'll need to edit the package.
 
 ### Set up a corresponding blank repository on GitHub
 
 Log in to your GitHub account (if you aren't already), and near the upper right you should see a `+`. Click it and select "New repository."
-Leave it on "No template" (PkgTemplates has done all that for us), enter `DemoPackageTEH.jl` for the package name (note the additional `.jl` ending, a convention that makes Julia packages more searchable), select `Public`, and then click `Create repository`.https://opensource.org/licenses
+Leave it on "No template" (PkgTemplates has done all that for us), enter `DemoPackageTEH.jl` for the package name (**note the additional `.jl` ending, a convention that makes Julia packages more searchable**), select `Public`, and then click `Create repository`.
+A new page will appear; leave this open (in case of trouble), but don't take those steps yet (or at all, as you should be able to do everything from within VS Code).
+
+If you get stuck, see [the GitHub docs](https://docs.github.com/en/get-started/quickstart/create-a-repo), keeping in mind that PkgTemplates has already created some of the files (the README, `.gitignore`, and the LICENSE file). Do *not* create them on GitHub, or you'll get a conflict.
 
 ### Sync the package on your computer to GitHub
 
@@ -95,17 +107,40 @@ Start VS Code and open the folder of your new package. (For the message above, t
 At the lower left you should see the `git` icon and the name of your default branch, `main`:
 
 ![The active branch](figures_pkgs_git_github/vscode_branch.png)
+\
 
-Click the little "push up to cloud" icon; it should push the template that PkgTemplates created for you up to GitHub. Most likely you will see the web page update and display the files and README. Click on the `commits` button TODO screenshot
+Click the little "push up to cloud" icon to the right of "main"; it should push the template that PkgTemplates created for you up to GitHub. Re-open the web page for your package in a new tab, and you should see the default GitHub page for repositories showing a list of files and the content of the README.
 
-Now you are ready to start developing!
+Click on the `commits` link at the right of the bar across the top of the folder view:
+
+![commits link](figures_pkgs_git_github/commits_tab.png)
+\
+
+(You probably only have 2 commits vs. the 3 you see in this screenshot; I made an extra one to clarify to anyone who stumbles across the package that this is just a dummy package.)
+
+The list of commits should match what you see locally if you click on the `git`/Source control icon in VS Code:
+
+![source control](figures_pkgs_git_github/vscode_srctrl.png)
+\
+
+and then the "clock" icon ("View History (git log)") across the top:
+
+![history](figures_pkgs_git_github/vscode_srcctrl_options.png)
+\
+
+In the window that pops up, the red & green colorful badges over to the right tell you the current status of your local and remote repositories. Currently both badges should be next to each other on your most recent commit, but as you make commits locally the red "origin/main" (`origin` is your *remote*) badge will lag behind your "main" badge, indicating that GitHub is "behind" your local repository, until you synchronize the repositories (more on that later).
+
+You can close the history-view window by clicking on its "x" in its tab. Now you are ready to start developing!
 
 ### Create a branch
 
 You generally want to keep `main` synced with what's up on GitHub; most changes should be made on a branch.
 Click on the `main` down at the lower left, and VS Code will invite you to supply a new branch name.
 I usually name it with my initials and a brief summary of the intent of the change: for example, `teh/better_docs`
-might be something I'd use if I'm improving the documentation.
+might be something I'd use if I'm improving the documentation. Here, I'm going to name the branch `teh/greeting`.
+My status bar looks like this:
+
+![greeting branch \label{fig:greeting-branch}](figures_pkgs_git_github/vscode_status_bar_greeting.png)
 
 ### Make your first change
 
@@ -120,61 +155,74 @@ the expected greeting.
 
 **Note**: PkgTemplates does *not* add your new package to your default environment.
 Despite that, if you did this within the VS Code session that you opened on the `DemoPackageTEH` folder, the above should have worked.
-Why? Down on the bottom of the screen, you should see something like this:
-
-![Current environment](figures_pkgs_git_github/demo_env.png)
-
-By opening VS Code on your project folder, the Julia extension also set you up with the environment of the package. You can see what packages are in that environment by entering `pkg>` mode and typing `status`. (The answer: not much! Your new package does not yet depend on other packages.)
+Why? In figure \ref{fig:greeting-branch}, you can see that the environment is set to `DemoPackageTEH`; by opening VS Code on your project folder, the Julia extension also set you up with the environment of the package. You can see what packages are in that environment by entering `pkg>` mode and typing `status`. (The answer: not much! Your new package does not yet depend on other packages.)
 
 ### Make your first "real" commit
 
 Click on the "Source control" icon:
 
-![VS Code Source Control](figures_pkgs_git_github/vscode_srcctrl.png)
+![VS Code Source Control](figures_pkgs_git_github/srcctrl_modified.png)
+\
 
-after which you should see something like this:
+Note that the blue circle with a "1" in it means you have 1 modified file. You should see something like this:
 
 ![VS Code changes](figures_pkgs_git_github/vscode_changes.png)
+\
 
 Click on the file and examine the side-by-side *diff* showing your changes.
-Click on the `+` to *stage* your changes. Once you have staged the complete set of changes you want to commit, enter a *commit message* and click the check.
+The left pane shows the old status, with deletions in red; the right side shows the new status, with additions in green.
+Click on the `+` to *stage* your changes.
+VS Code allows you to be choosy about which changes you stage even within a file (select a range of lines in the `diff` and then right-click to see some options), but we won't need such features here.
+You can always undo a staging choice by clicking the `-` under "Staged changes".
+Once you have staged the complete set of changes you want to commit, enter a *commit message* (I chose "Add greeting") and click the check.
+Note that commit messages should have a short summary on the first line; you can follow that with a blank line and then provide more detail.
+See [this example](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) that describes common formatting conventions for commit messages. Sadly, at the time of this writing VS Code still doesn't support automatic word wrap, see [this issue](https://github.com/Microsoft/vscode/issues/2718).
 
-Congratulations, you've made your first commit! You can see it in the history by clicking the clock-like icon.
+Congratulations, you've made your first commit! You can see it in the history, where your new branch is 1 commit ahead of both your local `main` and GitHub's `origin/main`.
+
+**You are strongly encouraged to watch `git` in action** by switching back and forth between `main` and your new branch: just click on the branch name in the status bar, select a different branch from the list that pops up, and you should see your local source code (magically!) change. This is the power of `git`: an entire folder's worth of source code can be drastically (but reversibly) modified with the click of a button, and you can run each version in Julia and compare them. (You may need to restart Julia to see the changes take effect unless you've installed the [Revise package](https://github.com/timholy/Revise.jl) and configured it to run automatically.) Be sure to go back to your new branch when you're done experimenting.
 
 ### Submit your change as a pull request (PR)
 
 We'll use pull requests for all changes, even though this is your own repository.
-This sets the stage for others joining you and being able to participate in open development.
+By using a pull request even for your own changes, you help create a welcoming atmosphere for other contributors, who can review your changes either to know what's coming or who may even make suggestions about potential improvements.
+There's no harm in pushing small changes directly to `main`, bypassing the ordinary process that facilitates interactive code review. However, using pull requests for most changes sends the message "I welcome contributors and will work with you on similar terms to how you work with me."
 
-Between the check and the clock-like icon, there is the "pull request" icon; click that and then click "Publish branch".
-If you need to elaborate on the purpose of a pull request, you can do so in the ?? box. Click ?? when you are ready to submit.
+Between the check and the clock-like icon, there is the "Create pull request" icon; click that and then click "Publish branch".
+Annoyingly, VS Code's git/GitHub extensions do not always seem to cooperate, and it sometimes chooses a bad "Title"; be sure to check it and edit it as needed.
+If you need to elaborate on the purpose of a pull request, you can do so in the "Description" box.
+Click "Create" when you are ready to submit.
 
-VS Code should shortly open a new tab for the pull request. Near the top there should be a blue link; clicking it will take you to the
-GitHub page for your pull request. (This is a near-duplicate of what you see in VS Code itself.)
+VS Code should shortly open a new tab for the pull request. Near the top there should be a blue "#1" link (the 1 means this is pull request number 1); clicking it will take you to the GitHub page for your pull request. (This is a near-duplicate of what you see in VS Code itself.)
 
 You may see (depending on timing) some yellow dots indicating that GitHub is testing your code. We haven't actually written any tests yet, so these should turn into green check marks pretty soon. Wait until that happens; when it does, merge your pull request to `main`.
+Edit, if necessary, the message (not necessary in this case) and click "Confirm merge".
+You can do this either with your browser or VS Code itself; it doesn't matter much, although at the time of this writing the browser offers a tad more functionality.
 (There are actually several options for how you do the merge, but it doesn't really matter in this case, so pick any one of them.
 You'll learn more later.)
+You can delete that branch on GitHub and, if you did the merge with VS Code, locally.
 
 ### Re-synchronize your `main` branch to GitHub's
 
-On your own machine, switch back to your `main` branch and refresh it. It should pull in the changes you just merged from that pull request.
-Once you've verified this, you can delete the branch you used for the PR (in the Git/Source control extension, click on the `...` near the top right of the pane, select "Branch" and then "Delete branch..."). Do not delete `main`!
+If you used your browser to do the merge, there's one more step to do: on your own machine, switch back to your `main` branch (by clicking on the branch name in the status bar at the lower left) and refresh it with the "recirculate" icon. It should pull in the changes you just merged from that pull request.
+First, check that the source code on `main` now includes `print_greeting`. Second, you can check your `git` history, where you will see the branching pattern and indicators for all local and remote branches. If you want, you do some branch-cleaning by clicking on the `x` associated with the merged branch.
+
+**Do not delete `main`!**
 
 ### Let your partner know you've made your first "real" commit
 
-Send an email or whatever to your partner, letting zem know your repository is ready for contribution. (For part of this homework, you have to wait until you've received your partner's pull request and gotten it merged.)
-
-When you receive the corresponding email about zir repository also being ready, the next two tasks can be done in either order.
+Send an email or whatever to your partner, letting zem know your repository is ready for contribution. When you receive the corresponding email about zir repository also being ready, the next two tasks can be done in either order. Don't go any farther until you're both ready.
 
 ### Task 1: make a PR to your partner's repository
 
-GitHub lets you make simple changes using a [web interface](https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files), and recently even bigger changes can be made by running [VS Code in your browser](https://github.com/features/codespaces). I sometimes use these approaches in my own contributions. However, most of the time I make the changes locally on my own machine; this gives you maximum flexibility, like making corresponding changes to other packages in the ecosystem. To ensure you know how to do this,
-make all changes using the approach described below; after this homework has been turned in, for future assignments you can use any approach you prefer.
+GitHub lets you make simple changes using a [web interface](https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files), and recently even bigger changes can be made by running [VS Code in your browser](https://github.com/features/codespaces). I sometimes use these approaches in my own contributions. However, most of the time I make the changes locally on my own machine; this gives you maximum flexibility, like making corresponding changes to other packages in the ecosystem that interact with the one you're modifying. To ensure you know how to do this,
+make all changes locally using the approach described below; after this homework has been turned in, for future assignments you can use any approach you prefer.
+
+If you get stuck, [GitHub's fork documentation](https://docs.github.com/en/get-started/quickstart/fork-a-repo) may be helpful, although know that Julia's `Pkg.develop` is recommended above manual cloning.
 
 #### Step 1a: make a fork of your partner's repository
 
-In the GitHub web interface, navigate to your partner's account and find zir `DemoPackage` repository (again, named slightly differently from yours, I'll call it `DemoPackageMP.jl` where MP = My Partner). Click the `Fork` button to make a copy in your own account. This is necessary because you don't have permission to submit changes to zir repository.
+In the GitHub web interface, navigate to your partner's account and find zir `DemoPackage` repository (again, named slightly differently from yours, I'll call it `DemoPackageMP.jl` where MP = My Partner). Click the `Fork` button to make a copy in your own account. Remember, this is necessary because you don't have permission to submit changes to zir repository, and you need a web-hosted place to push your changes.
 
 #### Step 1b: `dev` your partner's package locally
 
@@ -187,7 +235,7 @@ Back at the `julia> ` prompt, switch to your default environment by switching in
 (@v1.6) pkg>
 ```
 
-We take this step so that the next statement makes your partner's package a dependency of your *default environment*, not of *your package*:
+We took this step so that the next statement makes your partner's package a dependency of your *default environment*, not of *your package*:
 
 ```julia
 (@v1.6) pkg> dev https://github.com/timholy/DemoPackageMP.git
@@ -196,6 +244,20 @@ We take this step so that the next statement makes your partner's package a depe
 You get that URL from the `Code` dropdown on *your fork repository's* home page; you can copy/paste it into the Julia terminal to execute that `dev` command. You use your fork for this because you can `push` to your fork, but not to your partner's repository.
 
 (When you are done with this assignment, you can `(@v1.6) pkg> rm DemoProjectMP`.)
+
+---
+
+**NOTE**
+
+If you accidentally `dev` the *upstream* repository rather than your fork, you may have trouble pushing. No worries, this is fixable:
+
+- fork the upstream repository to your own account, if you haven't already
+- in VS Code's `git`/"Source control" view, click the "..." and select "Remote" and then "Add remote..."
+- choose "Add remote from GitHub" and select the repository (in this case, your fork)
+- give the remote a name; I usually choose "myfork"
+- when you push branches, VS Code may prompt you to choose a remote. When you don't have permission to push to `origin`, push it to `myfork`.
+
+---
 
 #### Step 1c: modify the code in your partner's package
 
@@ -212,8 +274,9 @@ At some point you will receive a similar pull request from your partner in your 
 
 ### Task 2: submit a 2nd PR to your own repository
 
-You realize you've limited the flexibility of your `print_greeting` method: you should have allowed for an `io::IO` argument.
-So create another branch, and add this new argument by modifying your code to:
+After thinking about it for a while, you realize you've limited the flexibility of your `print_greeting` method: you should have allowed for an `io::IO` argument so that the output could be sent to a file as well as `stdout`. Let's fix this oversight!
+
+Starting from your own `main` (for me in `DemoProjectTEH`, *not* `DemoProjectMP`), create another branch and add this new argument by modifying your code to:
 
 ```julia
 print_greeting(io::IO = stdout) = print(io, "Hello, world!")
@@ -223,9 +286,9 @@ This makes `io` optional, defaulting to `stdout`, but allows anyone calling `pri
 (This can be especially nice for writing tests, but it has many uses and nearly all print-oriented functions should probably have an argument that allows the stream to be specified.)
 
 **Note this is `print`, not `printstyled`**. You're starting from your `main` branch, which should still be using `print` rather than `printstyled` (even if your partner has already submitted zir pull request to you, you should not yet have merged it to `main`).
-We're setting the stage here for a (deliberate) eventual merge conflict. **Do not merge this pull request yet**.
+We're setting the stage here for a (deliberate) eventual merge conflict. **Do not merge this PR until you are instructed to do so**.
 
-**Now wait until you've completed both tasks and received your partner's pull request.**
+**Now wait until you've received your partner's pull request.**
 
 ### Provide a review of your partner's PR
 
@@ -258,14 +321,18 @@ The PR should update.
 When your partner has made your suggested change, it's time to merge! (You can first give an "Approve" review if you wish, but that isn't required unless it's been made so by changes in the repository settings.) Click the triangle on the "merge" button and choose the "Squash and merge" variant: this PR is pretty simple, does just one thing, and its history as 2 separate commits isn't very relevant---you might
 as well combine the two commits into a single commit when it merges. Click "Squash and merge" and edit the commit comment into something you're happy with: it will represent this change for the rest of the life of this repository. Then click "Confirm merge"; you should see the browser page update, and the badge for the PR turn purple as a sign that it has been merged.
 
-After it merges, post a little comment, "Thanks for your contribution!" You don't have to do this every time, especially if it's someone you've worked with before; just merging is a sign of gratitude, and when I contribute something I'm also mindful of the time that the reviewer/maintainer invests in helping get my contribution over the finish line. (Gratitude goes both ways.) If you like, you can indicate your gratitude more quitely by using the heart or thumbs-up icon in the original post or any near-terminal follow-up. (Posts generate notifications, and active developers might get hundreds of notifications per day.) But especially for first-time contributors, be sweet & encouraging! You never know what ze will grow into, and for a newbie submitting zir first change to a "real" project that gets used by thousands of people worldwide, it can be quite a rush.
+After it merges, post a little comment, "Thanks for your contribution!" You don't have to do this every time, especially if it's someone you've worked with before; just merging is a sign of gratitude, and when I contribute something I'm also mindful of the time that the reviewer/maintainer invests in helping get my contribution over the finish line. (Gratitude goes both ways.) If you like, you can indicate your gratitude more quitely by using the heart or thumbs-up icon in the original post or any near-terminal follow-up. (Posts generate notifications, and very active developers might get hundreds of notifications per day, so sometimes a quiet acknowledgement is appreciated more than one that generates a notification.) But especially for first-time contributors, be sweet & encouraging! You never know what ze will grow into, and for a newbie submitting zir first change to a "real" project that gets used by thousands of people worldwide, it can be quite a rush.
 
-#### Aside: comments about squashing
+---
+
+**Remarks on squashing**
 
 I typically *wouldn't* use "squash" if the PR is more complicated and shows evidence of having been carefully assembled from a sequence of standalone changes; that's a sign that your contributor is sophisticated and has used a development process compatible with powerful tools like [git bisect](https://git-scm.com/docs/git-bisect).
 That history may come in handy some day if you have to do a bit of digging to figure out which change broke something important.
 
-But this is not such a PR. In general, if I get a PR with commit comments like "WIP" (Work In Progress) followed by "get partly working" and then "whoops, fix xyz" etc., I take this as a clear sign that the individual commits are meaningless. I don't want that kind of "junk" littering my `git` history, so I will definitely squash the commits when I merge.
+But this is not such a PR. In general, if I get a PR with commit comments like "WIP" (Work In Progress) followed by "get partly working" and then "whoops, fix xyz" and then "respond to review reqeusts" etc., I take this as a clear sign that the individual commits are meaningless. I don't want that kind of "junk" littering my `git` history, so I will definitely squash the commits when I merge.
+
+---
 
 ### Return to the PR you started in your own package, resolve the conflict, and merge
 
@@ -292,9 +359,9 @@ For your first genuine contribution, we'll focus on documentation. Documentation
 - the developer(s) know too much about the internals to write high-quality documentation approachable by outsiders.
 - skills to write good documentation are not necessarily the same skills as writing good code.
 
-**You can make a huge contribution to usability and adoption by submitting documentation improvements.** Such changes are often less daunting to newcomers because they may not demand quite as much in programming skills.
+**You can make a huge contribution to usability and adoption by submitting documentation improvements.** Such changes are often less daunting to newcomers because they may not demand quite as much programming skill.
 
-We'll focus on a particular form of documentation, the *module docstring*. Let's look at examples from the JuliaIO organization, which focuses on supporting various file formats, in particular the `VideoIO` and `JLD2` packages:
+We'll focus on a particular form of documentation absent from the majority of Julia packages, the *module docstring*. Let's look at examples from the JuliaIO organization, which focuses on supporting various file formats, in particular the `VideoIO` and `JLD2` packages:
 
 ```julia
 (@v1.6) pkg> activate --temp
@@ -371,14 +438,12 @@ So, the final problem of this homework is to find a Julia package lacking a modu
 You can "stake your claim" by posting to the class Slack, just to make sure you don't duplicate effort with someone else.
 Use the following steps:
 
-- identify a package that interests you but lacks a module docstring. Registered packages are listed [here](https://juliahub.com/ui/Search)
+- identify a package that interests you but lacks a module docstring. Registered packages are listed [here](https://juliahub.com/ui/Search).
   You can also [browse organizations](https://julialang.org/community/organizations/) that may interest you.
-  Check the package for signs of active maintenance; you can click on *commits* to view recent activity, or look at the
-  *Contributors* pane and see a graphical summary. An even more reliable guide might be to check pull requests and look for responsiveness;
-  having a lot of PRs open with no posts by anyone besides the original PR author is not encouraging.
+  Check the package for signs of active maintenance as described in lecture; if it looks abandoned, pick a different package. (Don't worry, your grade only depends on submitting the PR and responding to any feedback you might receive; it does not depend on your PR being merged.)
 - Once you've identified an interesting package, see if it already has a module docstring. Probably the easiest way is to navigate to
-  the package, view the main `src/SomePackageName.jl` file in the browser, and see whether there is an obvious module docstring.
-  Note that it is possible to "attach" a docstring from inside the module itself, so make sure you also load the package and use `?SomePackageName` to be sure it's really missing.
+  the package GitHub repo in your browser, view the main `src/SomePackageName.jl` file in the browser, and see whether there is an obvious module docstring.
 - `dev` the package and `add` the [ModuleDocstrings.jl](https://github.com/JuliaDocs/ModuleDocstrings.jl) package
-- use `ModuleDocstrings` to generate a "starter" docstring for your package
+-  Because it's possible to "attach" a docstring from inside the module itself, we should do one last check: load your chosen package at the `julia>` prompt and check for a module docstring directly (e.g., `using SomePackage` followed by `?SomePackage`). If you see nothing, you can be sure it lacks a module docstring. (If you see one, choose a different package.)
+- use `ModuleDocstrings` to generate a "starter" docstring for your package. Read the documentation for `ModuleDocstrings` to find out how.
 - open the package in VS Code, create a new branch, edit the new docstring until you are happy with it, stage, commit, and submit!
