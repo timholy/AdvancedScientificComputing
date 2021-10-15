@@ -70,6 +70,7 @@ When solving a part of a problem:
 - move on to the next part of the problem.
 
 Each of these might be just a few lines. We're deliberately breaking things up into small pieces. I will check the sequence of commits as well as the final outcome, and if you don't follow this workflow you will lose points.
+However, if you add or modify tests afterwards, that's fine! This is commonplace when generalizing code and tests, and I will not penalize you for such realistic workflows. (As an example: while I was crafting the "algorithmic" graph problem below, I ended up with 13 commits. Minimally, it could be solved with 8. I used more because I kept generalizing both my code and my tests. (I was also redesigning the problem a bit, and that won't apply to you, but in "real life" that's also common because you are responsible for deciding how things *should* work and you may find yourself revising your initial decisions.)
 
 *This requirement applies only to this homework; in the remainder of the course, choose whatever workflow you prefer.*
 
@@ -118,15 +119,19 @@ graph = [
 Notice that this graph has two *connected components*, `[1,2,3]` and `[4,5]`.
 (The numbering of the nodes is arbitrary; Fig. 1 could have scrambled the node numbering and then these wouldn't necessarily have come out in order. All that matters is the connectivity.)
 
+The graph above could be represented an [undirected graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)#Types_of_graphs) because all the connections go both ways. However, note that I've chosen to represent it in a form that could also be used for *directed* graphs.  When you write your tests, also come up with an example of a directed graph that isn't symmetric and make sure all the code you write works for this case too.
+
+For this problem, **no matter the representation, nodes should be implicitly assumed to connect to themselves**.
+
 Initially assuming the representation above, solve this problem as a sequence of steps described below. I will describe the functionality I want you to implement, but remember to **implement and commit the tests first** and then **implement and commit the code needed to pass the tests you just committed**:
 
-- Starting from a given node, return the list of directly-connected neighbors. (This may seem trivial with the representation above, but you'll see the point in the final stage of this problem.)
-- Starting from a given node, return the list of all nodes reachable (directly or via hopping from neighbor to neighbor) from that node. Your code should use the code you wrote in the first step.
+- Starting from a given node, return the list of directly-connected neighbors. (This may seem trivial with the representation above, but you'll see the point in the final stage of this problem.) Your test should include the fact that a node is connected to itself even if the representation doesn't list it explicitly.
+- Starting from a given node, return the list of all nodes reachable (directly or via hopping from neighbor to neighbor) from that node. Your code should use the code you wrote in the first step. If you're unfamiliar with the programming concepts needed to solve this problem, a hint is that there are two roughly equivalent approaches: [recursion](https://en.wikipedia.org/wiki/Recursion#In_computer_science) and iteration, often via a stack or queue. (If the latter mean nothing to you, it's likely that recursion will be the easier approach.)
 - Identify all connected components of the graph. Your code should use the code you wrote above.
 - Generalize your code so that it also supports a graph supplied in *adjacency matrix format*, in which the graph above is represented as
 
 ```julia
-A = [
+A = Bool[
   1 1 1 0 0;
   1 1 0 0 0;
   1 0 1 0 0;
@@ -135,11 +140,13 @@ A = [
 ]
 ```
 
-Generalize your code **without converting the adjacency matrix into a neighbor-list format**; use Julia's dispatch features to implement low-level methods, and then see if your high-level routines "just work."
+If `A[row, col]` is `true`, then `row` connects directly to `col`. (Note that `Bool[...]` is an easy way to construct arrays with `0 = false`, `1 = true`.)
+
+Generalize your code **without converting the adjacency matrix into a neighbor-list format**; use Julia's dispatch features to implement low-level methods, and then see if your high-level routines "just work." Make sure your code also works if you set all the diagonal elements of `A` to `false` (again, here we are decreeing that nodes are implicitly connected to themselves, whether that's included in the input representation or not).
 
 Converting representations is not a big deal when dealing with small graphs, but if someone hands you a graph with a billion edges, some formats may fit in your computer's memory while others may not. Representation-agnostic code has a better chance than representation-specific code of being generalizable to different input formats.
 
-At the end, submit this as a pull request to GitHub and use CodeCov to check your coverage. If there are untested lines, write new tests that exercise them. These do not have to be written before the code, but use a commit message similar to "Improve test coverage" so that your instructor understands the sequence in which things happened. When you merge the pull request, **do not squash**.
+At the end, submit this as a pull request to GitHub and use CodeCov to check your coverage. If there are untested lines, write new tests that exercise them. These do not have to be written before the code, but use a commit message similar to "Improve test coverage" so that your instructor understands the sequence in which things happened. When you merge the pull request to `main`, **do not squash**.
 
 ## A concept-encapsulation problem
 
