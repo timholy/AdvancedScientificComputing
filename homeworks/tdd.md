@@ -27,7 +27,7 @@ For those interested in the internal details: at the time of the writing, the mo
 ### Codecov
 
 [CodeCov](https://about.codecov.io/) is a web service for inspecting code coverage data online and representing it graphically.
-You'll set up this service for use with your account so that you can check your coverage.
+You'll set up this service for use with your account so that you and others can easily check your coverage.
 
 Let's return to this PkgTemplates configuration line we introduced in the previous session:
 
@@ -35,7 +35,7 @@ Let's return to this PkgTemplates configuration line we introduced in the previo
 tpl = Template(; plugins=[GitHubActions(), Codecov(), Documenter{GitHubActions}()])
 ```
 
-The `Codecov()` part configures "GitHubActions" (more on that in the next session) to run your tests with Julia in coverage-collection mode and then uses the [Coverage package](https://github.com/JuliaCI/Coverage.jl) to bundle up the coverage data in appropriate form for submission to Codecov. The data get stored in your personal Codecov account (for repositories you own) or ones associated with GitHub organizations (for repositories that are hosted within organizations). You can review the results at the Codecov site. If you turn on GitHub integration (see below), you'll also see reports within GitHub pull requests.
+The `Codecov()` part configures "GitHubActions" (more on that in the next session) to run your tests with Julia in coverage-collection mode, and then uses the [Coverage package](https://github.com/JuliaCI/Coverage.jl) to bundle up the coverage data in appropriate form for submission to Codecov. The data get stored in your personal Codecov account (for repositories you own) or ones associated with GitHub organizations (for repositories that are hosted within organizations). You can review the results at the Codecov site. If you turn on GitHub integration (see below), you'll also see reports within GitHub pull requests.
 
 ### Using Revise in conjunction with test-driven development
 
@@ -61,22 +61,23 @@ I encourage you to borrow good ideas wherever you find them, but not to feel lik
 
 # Important instructions
 
-*Despite the advice above to avoid "adhering to a rigid set of rules," for this particular homework...*
-
-When solving a part of a problem:
+Despite the advice above to avoid "adhering to a rigid set of rules," for this particular homework:
 
 - add the tests and verify they fail (you haven't written the code yet). **Make a commit.**
 - add the implementation (preferably, a *minimal* implementation) and verify your new tests pass. **Make another commit.**
-- move on to the next part of the problem.
+- move on to the next step in the problem.
 
-Each of these might be just a few lines. We're deliberately breaking things up into small pieces. I will check the sequence of commits as well as the final outcome, and if you don't follow this workflow you will lose points.
-However, if you add or modify tests afterwards, that's fine! This is commonplace when generalizing code and tests, and I will not penalize you for such realistic workflows. (As an example: while I was crafting the "algorithmic" graph problem below, I ended up with 13 commits. Minimally, it could be solved with 8. I used more because I kept generalizing both my code and my tests. (I was also redesigning the problem a bit, and that won't apply to you, but in "real life" that's also common because you are responsible for deciding how things *should* work and you may find yourself revising your initial decisions.)
+Do this sequence for each numbered step of the assignment (you should end up with at least two commits per step). Each of these might be accomplished with just a few lines of code, we're deliberately breaking things up into small pieces. I will check the sequence of commits as well as the final outcome, and if you don't follow this workflow you will lose points.
 
 *This requirement applies only to this homework; in the remainder of the course, choose whatever workflow you prefer.*
 
+If you later add more tests ("whoops, I forgot to check if...") or modify existing tests, that's fine! This is a normal part of development. We'll talk a little more about the implications of such changes in the next session on package versioning and the release process.
+
 ## Why am I being forced to do this?
 
-This lecture and homework focus on *process*, and so your development process is part of the assignment. In my personal experience, most people who come from a scientific background tend to underutilize structured testing, and the idea of writing the tests before the code seems entirely foreign. Whether that's a practice you later use routinely, occasionally, or never at all, my guess is that you'll learn most by trying it out. It can be frustrating and slower the first time or two, but like most things your assessment of its merits and weaknesses shifts after you get over the initial learning curve. There's enough value in these ideas that you should give them a try.
+This lecture and homework focus on *process*, and so your development process is part of the assignment. In my personal experience, most people who come from a scientific background tend to underutilize structured testing, and the idea of writing the tests before the code seems entirely foreign.  If you want to be taken seriously as a coder, having good tests is starting to become *de rigueur*; you should henceforth expect to write tests for nearly all your code (and not just in this class).
+
+Regardless of whether writing tests *first* becomes a practice you later use routinely, occasionally, or never at all, my guess is that you'll learn most by trying it out. It can be frustrating and slower the first few times, but like most things your assessment of its merits and weaknesses shifts after you get over the initial learning curve. There's enough value in these ideas that you should give them a try.
 
 # Homework
 
@@ -99,9 +100,11 @@ When solving the problems, you can use `export` statements if you want any names
 
 While working with your package, either use the package's environment or `Pkg.develop` it in your main environment.
 
+FYI: with our default template settings, PkgTemplates adds a Codecov "badge" to your README, so that others can see your overall test coverage. Codecov recently changed their security in response to a breach, and last time I checked, the badge created by PkgTemplates no longer works. If this bothers you (fixing it is not required for this assignment), get the Markdown for a new badge directly from Codecov: choose the package, then Settings (from the top banner), click on "Badge" (from the left menu), copy the Markdown, and paste it into your README.
+
 ## An algorithmic problem
 
-Many problems in science are phrased in terms of graphs. Biological examples include graphs of interacting enzymes or proteins, graphs of connected neurons or brain regions, etc.  A graph
+Many problems in science are phrased in terms of [graphs](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)). Biological examples include graphs of interacting enzymes or proteins, graphs of connected neurons or brain regions, etc.  A graph
 
 ![A small two-component graph](smallgraph.png){ width=150px }
 
@@ -117,18 +120,19 @@ graph = [
 ```
 
 Notice that this graph has two *connected components*, `[1,2,3]` and `[4,5]`.
-(The numbering of the nodes is arbitrary; Fig. 1 could have scrambled the node numbering and then these wouldn't necessarily have come out in order. All that matters is the connectivity.)
+(The numbering of the nodes--also called vertices--is arbitrary; Fig. 1 could have scrambled the node numbering and then these wouldn't necessarily have come out in order. All that matters is the connectivity.)
 
-The graph above could be represented an [undirected graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)#Types_of_graphs) because all the connections go both ways. However, note that I've chosen to represent it in a form that could also be used for *directed* graphs.  When you write your tests, also come up with an example of a directed graph that isn't symmetric and make sure all the code you write works for this case too.
+For this problem, there are two additional requirements:
 
-For this problem, **no matter the representation, nodes should be implicitly assumed to connect to themselves**.
+- The graph above is effectively an [undirected graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)#Types_of_graphs) because all the connections go both ways. However, note that I've chosen to represent it in a form that could also be used for *directed* graphs. Your tests should include at least one example of a directed graph that isn't symmetric, and your code needs to return correct results for both undirected and directed graphs.
+- Regardless of how the "user" represents the graph, nodes should be implicitly assumed to connect to themselves and your tests should enforce that result. (Self-connectivity is omitted from the representation in `graph` above.)
 
-Initially assuming the representation above, solve this problem as a sequence of steps described below. I will describe the functionality I want you to implement, but remember to **implement and commit the tests first** and then **implement and commit the code needed to pass the tests you just committed**:
+Initially assuming the representation above, solve this problem as a sequence of steps described below. I will describe the functionality I want you to implement, but remember to implement and commit the tests first and then implement and commit the code needed to pass the tests you just committed:
 
-- Starting from a given node, return the list of directly-connected neighbors. (This may seem trivial with the representation above, but you'll see the point in the final stage of this problem.) Your test should include the fact that a node is connected to itself even if the representation doesn't list it explicitly.
-- Starting from a given node, return the list of all nodes reachable (directly or via hopping from neighbor to neighbor) from that node. Your code should use the code you wrote in the first step. If you're unfamiliar with the programming concepts needed to solve this problem, a hint is that there are two roughly equivalent approaches: [recursion](https://en.wikipedia.org/wiki/Recursion#In_computer_science) and iteration, often via a stack or queue. (If the latter mean nothing to you, it's likely that recursion will be the easier approach.)
-- Identify all connected components of the graph. Your code should use the code you wrote above.
-- Generalize your code so that it also supports a graph supplied in *adjacency matrix format*, in which the graph above is represented as
+1. Given a graph and starting node, return the list of directly-connected neighbors. Remember, your tests should enforce the fact that a node is connected to itself whether or not the user-supplied representation lists it explicitly.
+2. Given a graph and starting node, return the list of all nodes reachable (directly or indirectly via hopping from neighbor to neighbor) from that node. Your code should use (i.e., call) the code you wrote in the first step. If you're unfamiliar with the programming concepts needed to solve this problem, a hint is that there are two roughly equivalent approaches: [recursion](https://en.wikipedia.org/wiki/Recursion#In_computer_science) and iteration, the latter typically via a [stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) or [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)). (Stacks tend to give you "depth-first search" and queues "breadth-first search"; if all this means nothing to you, it's likely that recursion will be the easier approach.)
+3. Identify all connected components of the graph. Your code should use the code you wrote above.
+4. Generalize your code so that it also supports a graph supplied in *adjacency matrix format*, in which the graph above is represented as
 
 ```julia
 A = Bool[
@@ -140,30 +144,32 @@ A = Bool[
 ]
 ```
 
-If `A[row, col]` is `true`, then `row` connects directly to `col`. (Note that `Bool[...]` is an easy way to construct arrays with `0 = false`, `1 = true`.)
+If `A[row, col]` is `true`, then you can hop from `row` to `col` directly. (Note that `Bool[...]` is an easy way to construct arrays with `0 = false`, `1 = true`.)
 
-Generalize your code **without converting the adjacency matrix into a neighbor-list format**; use Julia's dispatch features to implement low-level methods, and then see if your high-level routines "just work." Make sure your code also works if you set all the diagonal elements of `A` to `false` (again, here we are decreeing that nodes are implicitly connected to themselves, whether that's included in the input representation or not).
+Generalize your code **without converting the adjacency matrix into a neighbor-list format**; use Julia's dispatch features to implement low-level methods, so that your high-level routines (perhaps minimally modified) "just work." Make sure your code also works if you set all the diagonal elements of `A` to `false` (again, here we are decreeing that nodes are implicitly connected to themselves, whether that's included in the input representation or not).
 
 Converting representations is not a big deal when dealing with small graphs, but if someone hands you a graph with a billion edges, some formats may fit in your computer's memory while others may not. Representation-agnostic code has a better chance than representation-specific code of being generalizable to different input formats.
 
-At the end, submit this as a pull request to GitHub and use CodeCov to check your coverage. If there are untested lines, write new tests that exercise them. These do not have to be written before the code, but use a commit message similar to "Improve test coverage" so that your instructor understands the sequence in which things happened. When you merge the pull request to `main`, **do not squash**.
+At the end, submit this as a pull request to GitHub and use CodeCov to check your coverage. If there are untested lines, write new tests that exercise them. Use a commit message similar to "Improve test coverage" so that your instructor understands the sequence in which things happened. When you merge the pull request to `main`, **do not squash** (though if you accidentally do, I can see what it was before directly in the PR).
 
 ## A concept-encapsulation problem
 
 Here we're going to implement a computational analog of a simple mathematical concept, the [interval](https://en.wikipedia.org/wiki/Interval_(mathematics)). Your implementation should hew as much as possible to the mathematical notion, subject to the limitations of computers in mimicking mathematics. (E.g., floating-point numbers are an imperfect reflection of the mathematical concept of real-valued numbers.)  You can restrict your implementation to *closed intervals*.
 
-Perform this as a sequence of these steps. I will describe the functionality I want you to implement, but remember to **implement the tests first** and **make (at least) two commits per bullet point**:
+Perform this as a sequence of these steps. I will describe the functionality I want you to implement, but remember to implement the tests first and make (at least) two commits per step:
 
-- Define an interval type (`Interval`) and make sure that `minimum(iv::Interval)` and `maximum(iv::Interval)` return the endpoints
-- Implement `in` (equivalently, its Unicode equivalent obtainable with `\in` followed by TAB) to test if a real number is within an interval
-- Make `isempty` "do the right thing" with intervals
-- Implement the mathematical notion of a subset. In julia, `issubset` or its Unicode equivalent (obtainable with the LaTeX command `\subseteq` followed by TAB) can be used. Your solution should leverage one of the previous steps.
-- Implement intersection (`intersect`, or `\cap` followed by TAB)
-- Implement pretty-printing: closed brackets `[` and `]` are typically used in mathematics to denote closed intervals, but in Julia this already means arrays. To avoid ambiguity, use the unicode characters `'\u301a'` and `'\u301b'`. Note the obligate use of character delimiters `'`.
+1. Define an interval type (`Interval`) and make sure that `minimum(iv::Interval)` and `maximum(iv::Interval)` return the endpoints. **Here and below, these refer to the `Base` functions**, i.e., provide new methods for `Base.minimum` and `Base.maximum`.
+2. Implement `in` (equivalently, its Unicode equivalent obtainable with `\in` followed by TAB) to test if a real number is within an interval
+3. Make `isempty` return `true` if supplied with an empty interval (think about how an empty interval might be defined; your implementation of `in` might give you a clue)
+4. Implement the mathematical notion of a [subset](https://en.wikipedia.org/wiki/Set_(mathematics)#Subsets). In julia, this is queried with `issubset`. Its Unicode equivalent is obtainable with the LaTeX command `\subseteq` followed by TAB, and the converse is `\nsubseteq`TAB. Make sure your implementation is in agreement with the properties of subsets in the previous link.
+5. Implement intersection (`intersect`, or `\cap` followed by TAB). Food for thought: is `union` an operation you can reasonably implement?
+6. Implement pretty-printing: closed brackets `[` and `]` are typically used in mathematics to denote closed intervals, but in Julia this already means arrays. To avoid ambiguity, use the unicode characters `'\u301a'` and `'\u301b'`. (I don't know of a way to get this to tab-complete, so to see what they look like as Unicode, just print them.) Also ensure that empty sets print as `\emptyset`TAB.
+
+   In Julia, you customize printing by writing a [`show` method](https://docs.julialang.org/en/v1/base/io-network/#Base.show-Tuple{IO,%20Any}).  `show` can also be defined in [3-argument variants](https://docs.julialang.org/en/v1/base/io-network/#Base.show-Tuple{IO,%20Any,%20Any}) for specific output forms--for example, to display an array as a PNG image--but you don't need to handle this variant.
 
 ## Bonus: combining algorithmic and concept-encapsulation in a single problem
 
-This is not required, but if you sailed through the two problems above, give it a try! This one is deliberately less structured than the previous two, and designed to give you a chance to start visualizing how to break a problem down into a sequence of incremental steps on your own. Even if you don't finish it, just getting a start will hopefully be fun and help you solidify your understanding of both Julia and good development practices.
+This is not required, but if you sailed through the two problems above, feel free to give it a try! Even if you don't finish it, just getting a start will hopefully be fun and help you solidify your understanding of both Julia and good development practices. This one is deliberately less structured than the previous two, and designed to give you a chance to start visualizing how to break a problem down into a sequence of incremental steps on your own.
 
 Many analysis problems can be solved in terms of the [nearest-neighbor problem](https://en.wikipedia.org/wiki/Nearest_neighbor_search). The "dumb" algorithm just checks all possible points and returns the closest one. However, when the number of points is very large, there is great interest in finding faster approaches. In two dimensions, one way to solve this problem fairly efficiently is via a [quadtree](https://en.wikipedia.org/wiki/Quadtree).
 With the `Interval` type from the previous problem, you already have a modest head-start on implementing a quadtree:
