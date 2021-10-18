@@ -24,6 +24,10 @@ Check your installation by launching Julia, either by double-clicking the applic
 - [old versions of PowerShell can cause problems](https://discourse.julialang.org/t/antivirus-hit-during-package-install/48706). Recommended solution: run PowerShell 7.
 - [antivirus can cause very slow Pkg operations](https://discourse.julialang.org/t/status-of-pkg-speed-improvements-outside-us-in-v1-5/46395/7). Hopefully this won't affect you; if it does, try adding an exclusion for `*.toml` files.  You can also temporarily disable antivirus during package updates. Finally, if you get really annoyed by this, one good option is to [install Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/setup/environment) and run Julia (and maybe other programming tasks...) under Linux.  (WSL appears to be quite popular among developers in many programming languages.)
 
+## Other interventions (may apply to Windows too)
+
+- *setting your editor*: Julia has a nice feature, `@edit somefunction(args...)`, that lets you open the source code file for the method that would carry out the given operation. On some platforms, Julia doesn't easily know the path for your editor or know which one you prefer. You can [create at startup.jl file](https://docs.julialang.org/en/v1/manual/environment-variables/) for configuring your Julia sessions, and then add configuration commands. For example, [to set your editor](https://docs.julialang.org/en/v1/manual/environment-variables/) you can define `ENV["JULIA_EDITOR"] = r"/path/to/your/editor"`.  The "r" in front of the string means a "raw string"; that's handy on Windows where the path separator `\` may be interpreted as an escape sequence.
+
 # Install VS Code and extensions
 
 VS Code is a modern, cross-platform, cross-language development environment.  Install [VS Code from here](https://code.visualstudio.com/).
