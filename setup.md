@@ -26,7 +26,15 @@ Check your installation by launching Julia, either by double-clicking the applic
 
 ## Other interventions (may apply to Windows too)
 
-- *setting your editor*: Julia has a nice feature, `@edit somefunction(args...)`, that lets you open the source code file for the method that would carry out the given operation. On some platforms, Julia doesn't easily know the path for your editor or know which one you prefer. You can [create at startup.jl file](https://docs.julialang.org/en/v1/manual/environment-variables/) for configuring your Julia sessions, and then add configuration commands. For example, [to set your editor](https://docs.julialang.org/en/v1/manual/environment-variables/) you can define `ENV["JULIA_EDITOR"] = r"/path/to/your/editor"`.  The "r" in front of the string means a "raw string"; that's handy on Windows where the path separator `\` may be interpreted as an escape sequence.
+- *setting your editor*: Julia has a nice feature, `@edit somefunction(args...)`, that lets you open the source code file for the method that would carry out the given operation. On some platforms, Julia doesn't easily know the path for your editor or know which one you prefer. You can [create at startup.jl file](https://docs.julialang.org/en/v1/manual/environment-variables/) for configuring your Julia sessions, and then add configuration commands. For example, [to set your editor](https://docs.julialang.org/en/v1/manual/environment-variables/) you can define
+
+```julia
+ENV["JULIA_EDITOR"] = '"' * raw"..." * '"'`
+```
+
+where you replace "..." with the path to your editor. For example, this might be something like `C:\Program Files\Microsoft VS Code\Code.exe` on Windows or `/usr/bin/code` on Linux.
+
+ The "raw" in front of the string means a "raw string" that gets taken literally; that's especially handy on Windows where the path separator `\` may otherwise be interpreted as an [escape sequence](https://docs.microsoft.com/en-us/cpp/c-language/escape-sequences?view=msvc-160).
 
 # Install VS Code and extensions
 
