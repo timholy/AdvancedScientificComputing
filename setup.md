@@ -26,7 +26,7 @@ Check your installation by launching Julia, either by double-clicking the applic
 
 ## Other interventions (may apply to Windows too)
 
-- *setting your editor*: Julia has a nice feature, `@edit somefunction(args...)`, that lets you open the source code file for the method that would carry out the given operation. On some platforms, Julia doesn't easily know the path for your editor or know which one you prefer. You can [create at startup.jl file](https://docs.julialang.org/en/v1/manual/environment-variables/) for configuring your Julia sessions, and then add configuration commands. For example, [to set your editor](https://docs.julialang.org/en/v1/manual/environment-variables/) you can define
+- *setting your editor*: Julia has a nice feature, `@edit somefunction(args...)`, that lets you open the source code file for the method that would carry out the given operation. On some platforms, Julia doesn't easily know the path for your editor or know which one you prefer. You can [create at startup.jl file](https://docs.julialang.org/en/v1/manual/environment-variables/) for configuring your Julia sessions, and then add configuration commands. For example, [to set your editor](https://discourse.julialang.org/t/edit-on-windows/1695) you can define
 
 ```julia
 ENV["JULIA_EDITOR"] = '"' * raw"..." * '"'`
