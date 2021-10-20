@@ -20,10 +20,6 @@ One simple (and imperfect) measure of "code quality" is the fraction of source-c
 While using a web-based service is often easier (we'll use [Codecov](#codecov), see below), if you wish you can measure coverage locally and inspect the results yourself. To learn how to do this, see [working locally](https://github.com/JuliaCI/Coverage.jl#working-locally) in the Coverage.jl README.
 Julia options are described [here](https://docs.julialang.org/en/v1/manual/command-line-options/) (in this context, see the `--code-coverage` option).
 
-TODO: delete if https://github.com/JuliaCI/Coverage.jl/pull/327 gets merged.
-Be aware that coverage-measurement has a few limitations, and occasionally lines are incorrectly marked as untested.
-For those interested in the internal details: at the time of the writing, the most egregious case occurs when code gets executed by Julia's built-in [interpreter](https://en.wikipedia.org/wiki/Interpreter_(computing)) rather than being [compiled](https://en.wikipedia.org/wiki/Compiler). (No one has yet implemented tools to measure coverage for code being run in the interpreter, see [this issue](https://github.com/JuliaLang/julia/issues/37059)). Note that by default, almost all code gets compiled; this issue only affects packages that have turned on settings to reduce latency by switching execution from the compiler to the interpreter.
-
 ### Codecov
 
 [CodeCov](https://about.codecov.io/) is a web service for inspecting code coverage data online and representing it graphically.
