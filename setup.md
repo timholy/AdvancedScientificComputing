@@ -39,6 +39,8 @@ To install the extensions:
 
 - type `GitHub` in the search bar and install the "GitHub Pull Requests and Issues" extension
 
+- type `git` in the search bar and install the "Git History" extension
+
 If you are not already familiar with VS Code, you should spend some time reading the documentation (see the "Docs" in the banner at the top of the VS Code page), particularly the [user interface](https://code.visualstudio.com/docs/getstarted/userinterface).  If you prefer [videos](https://code.visualstudio.com/docs/getstarted/introvideos), the first two ("Getting Started" and "Code Editing") would be the minimum needed to start.
 
 Even if you are familiar with VS Code itself, read the [Julia extension documentation](https://code.visualstudio.com/docs/languages/julia).  More information can be found at the [project site](https://www.julia-vscode.org/).
@@ -51,6 +53,8 @@ Finally, perhaps the best way to interact with Julia in VS Code is via the [Comm
 - search for Julia and select it (once you start using it, it will be first and you just hit "Enter"); you should see a Julia [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) start:
 
   ![The VS Code Julia REPL](figures/vscode_with_julia_repl.png)
+
+This will open a Julia REPL. You can quit this REPL with `exit()` or hitting Ctrl-D.
 
 # Optional tools
 
