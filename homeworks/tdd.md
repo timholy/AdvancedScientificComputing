@@ -35,9 +35,16 @@ The `Codecov()` part configures "GitHubActions" (more on that in the next sessio
 
 ### Using Revise in conjunction with test-driven development
 
-As acknowledged in lecture, sometimes it is difficult to capture a bug with a good, minimalistic test until you have verified that you genuinely understand the bug; sometimes, the only way to be sure you understand it is to fix it. You still want to be sure your test captures the bug (i.e., your new tests would fail without the fix), which basically means "backing out your fix" and re-running your test in the context of your test suite. The [Revise package](https://github.com/timholy/Revise.jl) can help automate [this process](https://timholy.github.io/Revise.jl/stable/#Secrets-of-Revise-%22wizards%22-1). In VS Code, you can stash code within the `git`/Source control pane by clicking "..." followed by "Stash" and then "Stash" again. Give your stash a brief message. Reverse this process by selecting "Pop stash..." from the same menu. Note that stashing/unstashing can sometimes generate conflicts which must be managed carefully; if you run into trouble, try searching for solutions (I found [two](https://www.theserverside.com/video/How-to-easily-merge-and-resolve-git-stash-pop-conflicts) potential [pages](https://stackoverflow.com/questions/7751555/how-to-resolve-git-stash-conflict-without-commit) but you may find others more or less useful).
+As acknowledged in lecture, sometimes it is difficult to capture a bug with a good, minimalistic test until you have verified that you genuinely understand the bug; sometimes, the only way to be sure you understand it is to fix it. You still want to be sure your test captures the bug (i.e., your new tests would fail without the fix), which basically means "backing out your fix" and re-running your test in the context of your test suite. The [Revise package](https://github.com/timholy/Revise.jl) can help automate [this process](https://timholy.github.io/Revise.jl/stable/#Secrets-of-Revise-%22wizards%22-1). This may not happen to you on this homework, but if it does, here's the workflow:
 
-You can keep your tests while stashing your fix by first committing the tests. If you discover your tests *don't* capture the problem, keep committing alterations to the test without committing the fix until you've successfully isolated the issue. *Optional*: for a cleaner `git` history, instead of making commits in VS Code using the check-mark, click "..." followed by "Commit" followed by "Commit staged (Amend)". This will modify your previous commit rather than creating a new one. *Never do this on main, only on branches*.
+1. In VS Code, check out a branch and commit your candidate *test*.
+2. In VS Code, [stash](https://git-scm.com/book/en/v2/Git-Tools-Stashing-and-Cleaning) the fix by clicking "..." (in the `git`/Source control view) followed by "Stash" and then "Stash" again. Give your stash a brief message.
+3. Run your test and make sure it fails
+4. Pop the stash (select "Pop stash..." from the same menu), run your test, and make sure it passes. Commit the fix.
+
+If you discover your tests *don't* capture the problem, keep committing alterations to the test without committing the fix until you've successfully isolated the issue. *Optional*: for a cleaner `git` history, instead of making commits in VS Code using the check-mark, click "..." followed by "Commit" followed by "Commit staged (Amend)". This will modify your previous commit rather than creating a new one. *Never do this on main, only on branches*.
+
+Note that stashing/unstashing can sometimes generate conflicts which must be managed carefully; if you run into trouble, try searching for solutions (I found [two](https://www.theserverside.com/video/How-to-easily-merge-and-resolve-git-stash-pop-conflicts) potential [pages](https://stackoverflow.com/questions/7751555/how-to-resolve-git-stash-conflict-without-commit) but you may find others more or less useful).
 
 ## Background and context
 
@@ -82,14 +89,14 @@ Regardless of whether writing tests *first* becomes a practice you later use rou
 ### Codecov
 
 Log in to [CodeCov](https://about.codecov.io/) via your GitHub account.
-Optionally (but recommended), [grant it access](https://github.com/apps/codecov) (click "Configure" in the upper right) to generate coverage reports on pull requests to repositories in your personal GitHub account.
+Optionally (but recommended), [grant it access](https://github.com/apps/codecov) (click "Configure" in the upper right) to generate coverage reports on pull requests to repositories in your personal GitHub account. When you review the code in a PR, lines that lack coverage will be tagged with an individual notice, so you don't have to go visit Codecov to find out if there's missing test coverage.
 
 ### Create a package for your solutions to this homework
 
 Use PkgTemplates to create a local package named "TDD", using the default template [above](#codecov).
 Use the same procedures you used in the last assignment to sync the empty repository to your GitHub account.
 
-This "package" will be fairly unusual, because it will consist of two unrelated problems (and optionally, a third having some overlap with the second). For each problem, store the tests (in `test/`) in a separate file, and do the same for the source code in `src/`.
+This "package" will be fairly unusual, because it will consist of two unrelated problems (and optionally, a third having some overlap with the second). For each problem, store the tests (in `test/`) in a file, and do the same for the source code in `src/`; for example, you might have `graph.jl` in both `src/` and `test/` for the problem on graphs, and `interval.jl` in both for the problem on intervals.
 Use `include` in both `TDD.jl` and `runtests.jl` to ensure that all your source & test files get woven into the package.
 
 When solving the problems, you can use `export` statements if you want any names of your functions to be externally visible, or use module-qualification `TDD.myfunction(args...)` if you prefer not to have any exports. (Either choice is fine.)
@@ -116,7 +123,7 @@ graph = [
 ```
 
 Notice that this graph has two *connected components*, `[1,2,3]` and `[4,5]`.
-(The numbering of the nodes--also called vertices--is arbitrary; Fig. 1 could have scrambled the node numbering and then these wouldn't necessarily have come out in order. All that matters is the connectivity.)
+(The numbering of the *nodes*--also known as *vertices*--is arbitrary; Fig. 1 could have scrambled the node numbering and then these wouldn't necessarily have come out in order. All that matters is the connectivity.)
 
 For this problem, there are two additional requirements:
 
