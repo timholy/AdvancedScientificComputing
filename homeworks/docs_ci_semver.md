@@ -16,7 +16,7 @@ Pkg allows you to distinguish between dependencies that are required to define y
 
 `Pkg.test` runs your tests in a "clean" environment decoupled from any other environment on your machine. This allows you to test whether the package depends on some special configuration on your machine. It is therefore different from `include("runtests.jl")` from within the REPL, which operates in whatever environment is active when you issue the command. It's worth noting that the test environment might be both more restrictive (it may lack packages you have installed in your default environment) and less restrictive (it may include packages in the `"extras"` section that you may not have installed).
 
-Because `Pkg.test` starts a fresh Julia session, it is not [Revise](https://github.com/timholy/Revise.jl)-compatible. To be able to use Revise while developing, [TestEnv.jl](https://github.com/JuliaTesting/TestEnv.jl) allows you to replicate the test environment while using the REPL. Using this package is highly recommended.
+Because `Pkg.test` starts a fresh Julia session, it is not [Revise](https://github.com/timholy/Revise.jl)-compatible. To be able to use Revise while developing, [TestEnv.jl](https://github.com/JuliaTesting/TestEnv.jl) allows you to replicate the test environment while using the REPL. Using this package is highly recommended. **Tip**: if you edit the `Project.toml` file after creating a test environment, the changes may not be incorporated. You can just enter `TestEnv.activate("MyPkg")` a second time, and it will switch to a new test environment incorporating the changes (no need to restart Julia unless this changes package versions by more than Revise can handle).
 
 ## Continuous integration (CI) via GitHub Actions
 
@@ -60,7 +60,7 @@ I recommend declaring both lower and upper bounds, i.e., use `DataFrames = "1"` 
 A typical workflow goes like this:
 
 1. `Pkg.add` the packages to the environment and get things working. Use this for both true dependencies and test-dependencies; both will be added to the `[deps]` section, but we'll fix that later.
-2. Check `Pkg.status` to determine what versions you are using and then manually add those to the `[compat]` section. You should add `[compat]` for all true dependencies, and optionally for test-dependencies, but be aware that adding test-dependency compatibility constraints applies to all users and not just during your testing. *Bounds on all true dependencies are required to register a package with Julia's general registry.*
+2. Check `Pkg.status` to determine what versions you are using and then manually add those to the `[compat]` section. You should add `[compat]` for all true dependencies, and optionally for test-dependencies, but be aware that adding test-dependency compatibility constraints applies to all users and not just during your testing. (Adding test dependencies to `[compat]` prioritizes test reliability; not adding them prioritizes installation flexibility for users who may not need to run your tests. I am not aware of any clear guidance as to which is better, so this may be mostly a matter of personal preference.) *Bounds on all true dependencies are required to register a package with Julia's general registry.*
 
    You may not need to be specific about minor and/or patch versions, i.e., if you happen to be using `SomePkg v1.2.4`, then it's quite possible that all `v1.x.x` or `v1.2.x` versions would suffice.
 3. For any test-dependencies, move the entry from `[deps]` to `[extras]` and [list them in the `Test` `[targets]`](https://pkgdocs.julialang.org/v1/creating-packages/#Test-specific-dependencies-in-Julia-1.0-and-1.1). Moving things from `[deps]` reduces the number of packages that Pkg will install when users `add` your package (the extras are added only upon running the tests).
@@ -91,23 +91,38 @@ For major release events (new packages, important new functionality, or key brea
 
 # Homework problems
 
-??Clone from GitHub classroom? Or just continue from the TDD homework??
+## Check out the repository
 
-Needed:
-- something that requires external packages (for [compat] exercises). Maybe graph layout (spectral) which I write and they just add a plotting package. (Do they write any of the plotting at all?)
-- also a test-only dependency
+Check out the repository, which is privately hosted on GitHub classroom. Ask Tim for a link. **Only those students who completed the "Testing and design (TDD)" homework are eligible for this assignment**. This homework builds on that one, and includes answers for a portion of that problem set.
 
-## Copy/paste your source code & tests
+## Get the repository working locally
 
-## Customize the CI
+The initial repository should fail its tests. Check out a branch and fix it so that it passes tests. **Make changes only of the following kinds**:
 
-Drop/add/modify a Julia version. But maybe get them to figure this out via the logs.
+- add packages to the project (`Pkg.add`) with their corresponding `[compat]` entries (you can choose whether to list test-only dependencies in `[compat]`, but you will lose points if you do not add `[compat]` for true dependencies)
+- add `using` statements to the `src/` and/or `test/` code
+
+When adding packages, distinguish what's needed for the package itself and what's a test-only dependency (see [Pkg and local development](#pkg-and-local-development)). For each missing call, here are the packages you'll need to add to the project:
+
+- `@test_reference`: [ReferenceTests](https://github.com/JuliaTesting/ReferenceTests.jl)
+- `plot`: [Plots](https://github.com/JuliaPlots/Plots.jl)
+- `load`: [FileIO](https://github.com/JuliaIO/FileIO.jl). For the specific file types used here, you'll also need [ImageIO](https://github.com/JuliaIO/ImageIO.jl).
+
+You can add them incrementally in response to error messages and use the stacktrace to figure out whether each is a "real" dependency or a test-dependency.
+
+## Push the package up to GitHub and fix your CI
+
+Submit the branch as a pull request on GitHub. While the package should work locally, you will discover that it doesn't pass CI. Read the logs and determine why. *The failure should be in one of your tests.* If it fails prior to (e.g., in the build stage), loosen some of your `[compat]` bounds and try again. (The error may be in an indirect dependency, but you can resolve it by loosening bounds on the direct dependency, giving Julia more flexibility to find a compatible version.)
+
+To fix the test failure, **do not edit the test**. (This is a small exercise in editing your GitHub Actions.) Instead:
+
+- from the logs, determine which call is failing in the tests. Read the help for the failing call and note that it requires a particular minimum version of Julia.
+- edit the `CI.yml` action to test two compatible versions of Julia (one should be the minimum version needed to make the test pass as determined from the help).
+- edit the `[compat]` section of `Project.toml` to make your package installable only on compatible versions of Julia
 
 ## Write docstrings
 
-Ensure that one docstring references another.
-
-Including a module docstring!
+Add docstrings for all the exported names of the package, include a module-docstring (which you can generate with `ModuleDocstrings` after adding the others). Ensure that the docstring for `reachable` includes a reference to `connected_nodes`. (Once you build the documentation, there should be a clickable link from the docstring of `reachable` to the docstring for `connected_nodes`.)
 
 ## Set up documentation
 
@@ -115,14 +130,16 @@ Write a tutorial page, an explanation page, and a reference page. We'll skip the
 
 All examples in your tutorial should use doctests.
 
-Add doctesting to tests
-
 Build the documentation & view locally. Once working, set up the secrets for deployment. Also add previews to `docdeploy`.
+
+Finally, add a `doctest` step to your tests to make sure your documentation doesn't inadvertently break.
 
 ## Ensure your README badges work
 
-Because you haven't registered your package yet, the documentation for the "latest stable release" hasn't been generated (there is no such release). Rely on the "development" docs for this assignment (you can delete the "stable" badge).
+Once merged to `main` on GitHub, wait a few minutes for your documentation to build and then see whether the documentation badge works. Because you haven't registered your package yet, the documentation for the "latest stable release" hasn't been generated (there is no such release). Rely on the "development" docs for this assignment (you can delete the "stable" badge).
 
 ## Bump version
 
 Make this 1.0! (Sometimes people release 0.x versions for a while and then go to 1.0. Prior to Julia 1.0's release, basically all packages were on 0.x, and many still haven't transitioned.)
+
+Were this a real package, it might be time to register it. (But don't do that.)
