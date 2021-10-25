@@ -131,9 +131,9 @@ Writing good documentation can take quite a lot of time, so **to reduce the dema
 
 ## Set up documentation
 
-Write a tutorial page, an explanation page, and a reference page. We'll skip the "how-to" because this package is fairly simple and the tutorial should suffice for most users. The note about about "reducing demands" applies here too; to save yourself time, you can be quite brief but do not omit any essential components.
+Write a tutorial page, an explanation page, and a reference page. We'll skip the "how-to" because this package is fairly simple and the tutorial should suffice for most users. The note above about "reducing demands" applies here too; to save yourself time, you can be quite brief but do not omit any essential components.
 
-All examples in your tutorial should use doctests.
+All examples in your tutorial should use doctests--remember, a key part of a good tutorial is that *it must work*. Using doctests ensures that you don't need to test it manually for each change to the package.
 
 Build the documentation & view locally. Once working, set up the secrets for deployment. Also add previews to `docdeploy`.
 
