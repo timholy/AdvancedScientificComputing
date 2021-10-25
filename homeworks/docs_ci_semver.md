@@ -14,7 +14,7 @@ Most problems on this homework focus on documentation and touch only superficial
 
 Pkg allows you to distinguish between dependencies that are required to define your package from extra packages that may be needed for your tests. For this homework, use the [extras section](https://pkgdocs.julialang.org/v1/creating-packages/#Test-specific-dependencies-in-Julia-1.0-and-1.1) of your `Project.toml` to declare such dependencies. (The community seems somewhat mixed on whether the method developed for Julia 1.2 and above is actually an improvement, so we'll use the generic Julia 1.x approach.)
 
-`Pkg.test` runs your tests in a "clean" environment decoupled from any other environment on your machine. This allows you to test whether the package depends on some special configuration on your machine. It is therefore different from `include("runtests.jl")` from within the REPL, which operates in whatever environment is active when you issue the command. It's worth noting that the test environment might be both more restrictive (it may lack packages you have installed in your default environment) and less restrictive (it may include packages in the `"extras"` section that you may not have installed).
+`Pkg.test` runs your tests in a "clean" environment decoupled from any other environment on your machine. This allows you to test whether the package depends on some special configuration on your machine. It is therefore different from `include("runtests.jl")` from within the REPL, which operates in whatever environment is active when you issue the command. It's worth noting that the test environment might be both more restrictive (it may lack packages you have installed in your default environment) and less restrictive (it may include packages in the `[extras]` section that you may not have installed).
 
 Because `Pkg.test` starts a fresh Julia session, it is not [Revise](https://github.com/timholy/Revise.jl)-compatible. To be able to use Revise while developing, [TestEnv.jl](https://github.com/JuliaTesting/TestEnv.jl) allows you to replicate the test environment while using the REPL. Using this package is highly recommended. **Tip**: if you edit the `Project.toml` file after creating a test environment, the changes may not be incorporated. You can just enter `TestEnv.activate("MyPkg")` a second time, and it will switch to a new test environment incorporating the changes (no need to restart Julia unless this changes package versions by more than Revise can handle).
 
@@ -60,9 +60,9 @@ I recommend declaring both lower and upper bounds, i.e., use `DataFrames = "1"` 
 A typical workflow goes like this:
 
 1. `Pkg.add` the packages to the environment and get things working. Use this for both true dependencies and test-dependencies; both will be added to the `[deps]` section, but we'll fix that later.
-2. Check `Pkg.status` to determine what versions you are using and then manually add those to the `[compat]` section. You should add `[compat]` for all true dependencies, and optionally for test-dependencies, but be aware that adding test-dependency compatibility constraints applies to all users and not just during your testing. (Adding test dependencies to `[compat]` prioritizes test reliability; not adding them prioritizes installation flexibility for users who may not need to run your tests. I am not aware of any clear guidance as to which is better, so this may be mostly a matter of personal preference.) *Bounds on all true dependencies are required to register a package with Julia's general registry.*
+2. Check `Pkg.status` to determine what versions you are using and then manually add those to the `[compat]` section. You should add `[compat]` for all true dependencies, and optionally for test-dependencies, but be aware that adding test-dependency compatibility constraints applies to all users and not just during your testing. (Adding test dependencies to `[compat]` prioritizes test reliability; not adding them prioritizes installation flexibility for users who may not need to run your tests. I am not aware of any clear guidance as to which is better, so this may be mostly a matter of personal preference.) *Bounds on all true dependencies (those in `[deps]`) are required to register a package with Julia's general registry.*
 
-   You may not need to be specific about minor and/or patch versions, i.e., if you happen to be using `SomePkg v1.2.4`, then it's quite possible that all `v1.x.x` or `v1.2.x` versions would suffice.
+   You may not need to be specific about minor and/or patch versions, i.e., if you happen to be using `SomePkg v1.2.4`, then it's quite possible that `SomePkg = "1"` or `SomePkg = "1.2"` would suffice.
 3. For any test-dependencies, move the entry from `[deps]` to `[extras]` and [list them in the `Test` `[targets]`](https://pkgdocs.julialang.org/v1/creating-packages/#Test-specific-dependencies-in-Julia-1.0-and-1.1). Moving things from `[deps]` reduces the number of packages that Pkg will install when users `add` your package (the extras are added only upon running the tests).
 
 Versioning is not just for packages: I often add `[compat]` bounds even to `Project.toml` files I create for local "scripts" (e.g., analyzing a particular data set), to increase the likelihood that this script will continue to be runnable in the future. (If desired, commit the `Manifest.toml` to the project's `git` history so that it becomes a permanent record of the exact versions you are using.)
@@ -70,7 +70,7 @@ Versioning is not just for packages: I often add `[compat]` bounds even to `Proj
 Tools for managing compatibility:
 
 - [CompatHelper](https://github.com/JuliaRegistries/CompatHelper.jl): stay up-to-date with your dependencies
-- [RegistryCompatTools](https://github.com/KristofferC/RegistryCompatTools.jl): determine which packages may be "pinning" a package you want to update to an older version
+- [RegistryCompatTools](https://github.com/KristofferC/RegistryCompatTools.jl): determine which packages may be holding back a package you'd like to update
 - [LocalRegistry](https://github.com/GunnarFarneback/LocalRegistry.jl) if you are running your own (or your group's own) package registry.
 
 Finally, in cases of conflict, remember the [conflict-resolution documentation](https://pkgdocs.julialang.org/latest/managing-packages/#conflicts). Keeping environments "lean" ("developer tools" in your default environment, and separate environments for individual packages & projects) is the easiest way to reduce the frequency of such conflicts.  Remember that you can use `pkg> activate --temp` to play around with a new package without making it part of a particular reusable environment.
@@ -122,11 +122,16 @@ To fix the test failure, **do not edit the test**. (This is a small exercise in 
 
 ## Write docstrings
 
-Add docstrings for all the exported names of the package, include a module-docstring (which you can generate with `ModuleDocstrings` after adding the others). Ensure that the docstring for `reachable` includes a reference to `connected_nodes`. (Once you build the documentation, there should be a clickable link from the docstring of `reachable` to the docstring for `connected_nodes`.)
+Add docstrings for all the exported names of the package, include a module-docstring (which you can generate with `ModuleDocstrings` after adding the others). Ensure:
+
+- that the docstring for `reachable` includes a reference to `connected_nodes`. (Once you build the documentation in the next step, there should be a clickable link from the docstring of `reachable` to the docstring for `connected_nodes`.)
+- there should be an example (under an `# Examples` section) for at least one of your docstrings. Examples should be short and work if copy/pasted into the REPL (after loading your package). Make sure it is marked with `jldoctest`.
+
+Writing good documentation can take quite a lot of time, so **to reduce the demands of this homework I will not critique the quality of your writing or clarity of your examples as long as all the key parts are there**. (This is "quick and dirty" documentation, and my main interest is in having you experience the entire workflow.)
 
 ## Set up documentation
 
-Write a tutorial page, an explanation page, and a reference page. We'll skip the "how-to" because this package is fairly simple and the tutorial should suffice for most users.
+Write a tutorial page, an explanation page, and a reference page. We'll skip the "how-to" because this package is fairly simple and the tutorial should suffice for most users. The note about about "reducing demands" applies here too; to save yourself time, you can be quite brief but do not omit any essential components.
 
 All examples in your tutorial should use doctests.
 
