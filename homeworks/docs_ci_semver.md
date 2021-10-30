@@ -161,14 +161,14 @@ I will ask you to write a tutorial page and a reference page. For reasons of tim
 11. Once working, set up the secrets for deployment.
 12. In `deploydocs` (called from `make.jl`), turn on previews.
 13. Submit as a PR. Check that the doc build worked. *If you get doctest failures on an older Julia version but not on 1.6*: Julia changed the way it prints arrays in 1.6. This effects the outcome of some doctests. You may be able to fix this by adding `filter=r"(Vector{.*}|Array{.*})"` to your `jldoctest` line; see [filtering doctests](https://juliadocs.github.io/Documenter.jl/stable/man/doctests/#Filtering-Doctests) for more information. Once you have this working locally (i.e., you haven't broken anything!), add another commit and push again.
-14. Inspect the preview by clicking on the "Details" of the "deploy" Action (this typically takes ~15 minutes to show up, at least for the first time, and you'll get a "Site not found" 404 error until then), and merge. **NOTE**: normally this would be straightforward. But there appears to be some restriction that prevents this from working for me, likely due to the GitHubClassroom environment. If anyone discovers a workaround please let me know! Until then, previews probably won't work.
+14. Inspect the preview by clicking on the "Details" of the "deploy" Action (this typically takes ~15 minutes to show up, at least for the first time, and you'll get a "Site not found" 404 error until then), and merge. **NOTE**: normally this would be straightforward. But because all of these repositories are private, the actual publication of the site is blocked, so the preview link will not work. (You'll have to enjoy the documentation on your own laptop.)
 
 
-## Ensure your README badges work (won't work?)
+## Ordinarily: ensure your README badges work
 
-Once merged to `main` on GitHub, wait a few minutes for your documentation to build and then see whether the documentation badge works. Because you haven't registered your package yet, the documentation for the "latest stable release" hasn't been generated (there is no such release). Rely on the "development" docs for this assignment (you can delete the "stable" badge).
+Once merged to `main` on GitHub, typically you should wait a few minutes for your documentation to build and then see whether the documentation badge works. Because you haven't registered your package yet, the documentation for the "latest stable release" hasn't been generated (there is no such release). Rely on the "development" docs for this assignment (you can delete the "stable" badge).
 
-**NOTE**: this also is unlikely to work due to the GitHubClassroom environment. Don't worry about this step.
+However, this won't work because the repository is private. Don't worry about this step.
 
 ## Bump version
 
