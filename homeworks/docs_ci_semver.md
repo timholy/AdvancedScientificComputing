@@ -1,7 +1,7 @@
 ---
 title: "Continuous integration, documentation, package versioning, and releases"
 author: Timothy E. Holy, Washington University in St. Louis
-date: Oct 23, 2021
+date: Oct 23, 2021 (updated Oct 30, 2021)
 geometry: margin=1in
 output: pdf_document
 ---
@@ -170,3 +170,7 @@ Once merged to `main` on GitHub, wait a few minutes for your documentation to bu
 Make this 1.0! (Sometimes people release 0.x versions for a while and then go to 1.0. Prior to Julia 1.0's release, basically all packages were on 0.x, and many still haven't transitioned.)
 
 Were this a real package, it might be time to register it. (But don't do that.)
+
+## Enable autograde
+
+Uncomment the "autograde" tests (at the end of `runtests.jl`) and check that they pass (or get them passing) locally. Submit another PR. Get it passing CI (it probably will all on its own), merge, and you're done!
