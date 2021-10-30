@@ -134,12 +134,13 @@ I will ask you to write a tutorial page and a reference page. For reasons of tim
 
 1. Create an empty file, `docs/src/tutorial.md`
 2. Title the "page" `# Tutorial`
-3. Add brief text showing how to create a graph and then plot it. (To keep this exercise short, don't include any other functionality in the tutorial.) Use the graph `graph = [[2,3,4], [1,3], [1,2], [1,5,6], [4,6], [4,5]]`.
+3. Add brief text showing how to create a graph and then plot it. (To keep this exercise short, don't include any other functionality in the tutorial.) Use the graph `graph = [[2,3,4], [1,3,4], [1,2], [1,5,6], [4,6], [4,5]]`.
 
    All examples in your tutorial should use doctests--remember, a key part of a good tutorial is that *it must work*. Using doctests ensures that you don't need to test it manually for each change to the package. Use a named doctest, e.g., `jldoctest tutorial`, so that you can use separate code-blocks, one showing its creation and another showing how it looks when graphed. Your doctest should include the output of the plot as created by `UnicodePlots`.
 
 4. List `tutorial.md` in the `make.jl` file. You don't (yet) need to make modifications to `index.md`.
-5. Build the documentation. Here's a pretty safe way in VS Code (assuming you're in the package's environment to start with):
+5. Also in `make.jl`, change the "timholy/CIandDocsExercise.jl" to "AdvancedScientificComputingInJuliaWashU/ci-and-docs-*" where you replace `*` with your user name (this should appear in the URL for this repository). **This is only needed because we're operating with GitHubClassroom, this is not something you'd do for a "normal" package.**
+6. Build the documentation. Here's a pretty safe way in VS Code (assuming you're in the package's environment to start with):
 
     ```julia
     julia> using CIandDocsExercise
@@ -153,17 +154,21 @@ I will ask you to write a tutorial page and a reference page. For reasons of tim
     julia> include("make.jl")
     ```
 
-5. View the docs in your browser (open `docs/build/index.html`). For now, you'll note that your reference material appears in `index.html`. (We'll fix that next.) Check that your tutorial looks roughly as intended. This might be a good place to make a commit.
-6. Create a blank `reference.md`. Move the function-documentation currently in `index.md` to `reference.md` and give that page a title (I chose `# Reference`). Write a tiny bit of narrative text in `index.md` to explain what this package is about.
-7. Build your documentation again and check that it looks good.
-8. Add a `doctest` step to your tests to make sure your documentation doesn't inadvertently break. **Tip** If you get `UndefVarError` errors when running doctests, it's likely that the tests are running without loading your package. Consider using the syntax `jldoctest; setup=:(using CIandDocsExercise)` so that the test will first load the package without you including it in the example. (If you prefer to add it as a manual step in the example, that's fine too.)
-9. Once working, set up the secrets for deployment.
-10. In `deploydocs` (called from `make.jl`), turn on previews.
-11. Submit as a PR. Check that the doc build worked, inspect the preview (this typically takes ~15 minutes to show up, at least for the first time), and merge.
+7. View the docs in your browser (open `docs/build/index.html`). For now, you'll note that your reference material appears in `index.html`. (We'll fix that next.) Check that your tutorial looks roughly as intended. This might be a good place to make a commit.
+8. Create a blank `reference.md`. Move the function-documentation currently in `index.md` to `reference.md` and give that page a title (I chose `# Reference`). Write a tiny bit of narrative text in `index.md` to explain what this package is about.
+9. Build your documentation again and check that it looks good.
+10. Add a `doctest` step to your tests to make sure your documentation doesn't inadvertently break. **Tip** If you get `UndefVarError` errors when running doctests, it's likely that the tests are running without loading your package. Consider using the syntax `jldoctest; setup=:(using CIandDocsExercise)` so that the test will first load the package without you including it in the example. (If you prefer to add it as a manual step in the example, that's fine too.)
+11. Once working, set up the secrets for deployment.
+12. In `deploydocs` (called from `make.jl`), turn on previews.
+13. Submit as a PR. Check that the doc build worked. *If you get doctest failures on an older Julia version but not on 1.6*: Julia changed the way it prints arrays in 1.6. This effects the outcome of some doctests. You may be able to fix this by adding `filter=r"(Vector{.*}|Array{.*})"` to your `jldoctest` line; see [filtering doctests](https://juliadocs.github.io/Documenter.jl/stable/man/doctests/#Filtering-Doctests) for more information. Once you have this working locally (i.e., you haven't broken anything!), add another commit and push again.
+14. Inspect the preview by clicking on the "Details" of the "deploy" Action (this typically takes ~15 minutes to show up, at least for the first time, and you'll get a "Site not found" 404 error until then), and merge. **NOTE**: normally this would be straightforward. But there appears to be some restriction that prevents this from working for me, likely due to the GitHubClassroom environment. If anyone discovers a workaround please let me know! Until then, previews probably won't work.
 
-## Ensure your README badges work
+
+## Ensure your README badges work (won't work?)
 
 Once merged to `main` on GitHub, wait a few minutes for your documentation to build and then see whether the documentation badge works. Because you haven't registered your package yet, the documentation for the "latest stable release" hasn't been generated (there is no such release). Rely on the "development" docs for this assignment (you can delete the "stable" badge).
+
+**NOTE**: this also is unlikely to work due to the GitHubClassroom environment. Don't worry about this step.
 
 ## Bump version
 
