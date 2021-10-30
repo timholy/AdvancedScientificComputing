@@ -105,8 +105,7 @@ The initial repository should fail its tests. Check out a branch and fix it so t
 When adding packages, distinguish what's needed for the package itself and what's a test-only dependency (see [Pkg and local development](#pkg-and-local-development)). For each missing call, here are the packages you'll need to add to the project:
 
 - `@test_reference`: [ReferenceTests](https://github.com/JuliaTesting/ReferenceTests.jl)
-- `plot`: [Plots](https://github.com/JuliaPlots/Plots.jl)
-- `load`: [FileIO](https://github.com/JuliaIO/FileIO.jl). For the specific file types used here, you'll also need [ImageIO](https://github.com/JuliaIO/ImageIO.jl).
+- `scatterplot`: [UnicodePlots](https://github.com/JuliaPlots/UnicodePlots.jl) Seemingly straight from the 1980s, this is everyone's favorite "text-only" plotting package. While Julia has multiple (too many...) more sophisticated graphical plotting packages, this one has the advantage of being runnable even on headless servers (as used by default on GitHub Actions for Ubuntu) and easy to work into the docs via a doctest. There are ways to use and test a true graphical plotting package, but for the purposes of this class, the simplicity and robustness of UnicodePlots are compelling advantages. Besides, it's quite charming and even occasionally useful.
 
 You can add them incrementally in response to error messages and use the stacktrace to figure out whether each is a "real" dependency or a test-dependency.
 
@@ -131,13 +130,36 @@ Writing good documentation can take quite a lot of time, so **to reduce the dema
 
 ## Set up documentation
 
-Write a tutorial page, an explanation page, and a reference page. We'll skip the "how-to" because this package is fairly simple and the tutorial should suffice for most users. The note above about "reducing demands" applies here too; to save yourself time, you can be quite brief but do not omit any essential components.
+I will ask you to write a tutorial page and a reference page. For reasons of time (and becaue this is simple package), we will skip "how-to" and "explanation." To save yourself time, you can be quite brief but do not omit any essential components. Here are the key steps (remember, the necessary components are linked [above](#documentation)):
 
-All examples in your tutorial should use doctests--remember, a key part of a good tutorial is that *it must work*. Using doctests ensures that you don't need to test it manually for each change to the package.
+1. Create an empty file, `docs/src/tutorial.md`
+2. Title the "page" `# Tutorial`
+3. Add brief text showing how to create a graph and then plot it. (To keep this exercise short, don't include any other functionality in the tutorial.) Use the graph `graph = [[2,3,4], [1,3], [1,2], [1,5,6], [4,6], [4,5]]`.
 
-Build the documentation & view locally. Once working, set up the secrets for deployment. Also add previews to `docdeploy`.
+   All examples in your tutorial should use doctests--remember, a key part of a good tutorial is that *it must work*. Using doctests ensures that you don't need to test it manually for each change to the package. Use a named doctest, e.g., `jldoctest tutorial`, so that you can use separate code-blocks, one showing its creation and another showing how it looks when graphed. Your doctest should include the output of the plot as created by `UnicodePlots`.
 
-Finally, add a `doctest` step to your tests to make sure your documentation doesn't inadvertently break.
+4. List `tutorial.md` in the `make.jl` file. You don't (yet) need to make modifications to `index.md`.
+5. Build the documentation. Here's a pretty safe way in VS Code (assuming you're in the package's environment to start with):
+
+    ```julia
+    julia> using CIandDocsExercise
+
+    shell> cd docs
+    /home/tim/Documents/teaching/scicomputing/homeworks/CIandDocsExercise/docs
+
+    (CIandDocsExercise) pkg> activate .
+    Activating environment at `~/Documents/teaching/scicomputing/homeworks/CIandDocsExercise/docs/Project.toml`
+
+    julia> include("make.jl")
+    ```
+
+5. View the docs in your browser (open `docs/build/index.html`). For now, you'll note that your reference material appears in `index.html`. (We'll fix that next.) Check that your tutorial looks roughly as intended. This might be a good place to make a commit.
+6. Create a blank `reference.md`. Move the function-documentation currently in `index.md` to `reference.md` and give that page a title (I chose `# Reference`). Write a tiny bit of narrative text in `index.md` to explain what this package is about.
+7. Build your documentation again and check that it looks good.
+8. Add a `doctest` step to your tests to make sure your documentation doesn't inadvertently break. **Tip** If you get `UndefVarError` errors when running doctests, it's likely that the tests are running without loading your package. Consider using the syntax `jldoctest; setup=:(using CIandDocsExercise)` so that the test will first load the package without you including it in the example. (If you prefer to add it as a manual step in the example, that's fine too.)
+9. Once working, set up the secrets for deployment.
+10. In `deploydocs` (called from `make.jl`), turn on previews.
+11. Submit as a PR. Check that the doc build worked, inspect the preview (this typically takes ~15 minutes to show up, at least for the first time), and merge.
 
 ## Ensure your README badges work
 
