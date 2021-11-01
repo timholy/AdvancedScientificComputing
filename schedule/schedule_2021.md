@@ -19,8 +19,8 @@ All sessions will run on Mondays and Wednesdays from 10am-11:30am.  There is a t
 1. Oct. 4: Introduction to the course: "why Julia?" and a brief tour: [lecture materials](../lectures/intro/intro-julia.ipynb), [video](https://youtu.be/x4oi0IKf52w), and [homework1](../homeworks/learning_julia1.md) and [homework2](../homeworks/learning_julia2.md). The two week gap between the first lecture and the remainder of the course is to allow participants to learn and become comfortable with Julia.
 2. Oct. 18: Open source culture, Julia packages, git, and GitHub: [lecture materials](../lectures/pkgs_git_github/pkgs_git_github.ipynb), [video](https://www.youtube.com/watch?v=cquJ9kPkwR8), and [homework](../homeworks/pkgs_git_github.md).
 3. Oct. 20: Testing & principles of design: [lecture materials](../lectures/tdd/Testing_and_design.ipynb), [video](https://youtu.be/yYqaosGFwAc), and [homework](../homeworks/tdd.md).
-4. Oct. 25: Continuous integration, documentation, package versioning, and releases
-5. Oct. 27: High performance computing on your laptop I: understanding and measuring performance
+4. Oct. 25: Continuous integration, documentation, package versioning, and releases: [lecture materials](../lectures/ci_docs/CIandDocs.ipynb), [video](https://youtu.be/unXzO6amVoQ), and [homework](../homeworks/docs_ci_semver.md)
+5. Oct. 27: High performance computing on your laptop I: understanding and measuring performance: [lecture materials](../lectures/perf1/perf1.ipynb), [video](https://youtu.be/_oRRbuuxnjY), and [homework as a "template repository" for GitHub Classroom](https://github.com/AdvancedScientificComputingInJuliaWashU/Performance.jl).
 6. Nov. 3: High performance computing on your laptop II: algorithms, compilers, and inference
 
 # Assignments
