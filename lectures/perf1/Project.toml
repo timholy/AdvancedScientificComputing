@@ -1,0 +1,8 @@
+[deps]
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
+IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
+MethodAnalysis = "85b6ec6f-f7df-4429-9514-a64bcd9ee824"
+Profile = "9abbd945-dff8-562f-b5e8-e1ebf5ef1b79"
+ProfileSVG = "132c30aa-f267-4189-9183-c8a63c7e05e6"
+ProfileView = "c46f51b8-102a-5cf2-8d2c-8597cb0e0da7"
+PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee"
