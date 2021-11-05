@@ -21,7 +21,7 @@ All sessions will run on Mondays and Wednesdays from 10am-11:30am.  There is a t
 3. Oct. 20: Testing & principles of design: [lecture materials](../lectures/tdd/Testing_and_design.ipynb), [video](https://youtu.be/yYqaosGFwAc), and [homework](../homeworks/tdd.md).
 4. Oct. 25: Continuous integration, documentation, package versioning, and releases: [lecture materials](../lectures/ci_docs/CIandDocs.ipynb), [video](https://youtu.be/unXzO6amVoQ), and [homework](../homeworks/docs_ci_semver.md)
 5. Oct. 27: High performance computing on your laptop I: inference, compilation, and performance measurement: [lecture materials](../lectures/perf1/perf1.ipynb), [video](https://youtu.be/_oRRbuuxnjY), and [homework as a "template repository" for GitHub Classroom](https://github.com/AdvancedScientificComputingInJuliaWashU/Performance.jl).
-6. Nov. 3: High performance computing on your laptop II: algorithms, memory, and parallelism
+6. Nov. 3: High performance computing on your laptop II: algorithms, memory, and parallelism: [lecture materials](../lectures/perf2/perf2.ipynb) and [video](https://youtu.be/MbJykT-QjlI) (see the previous session for applicable homework).
 
 # Assignments
 
