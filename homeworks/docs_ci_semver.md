@@ -130,7 +130,7 @@ Writing good documentation can take quite a lot of time, so **to reduce the dema
 
 ## Set up documentation
 
-I will ask you to write a tutorial page and a reference page. For reasons of time (and becaue this is simple package), we will skip "how-to" and "explanation." To save yourself time, you can be quite brief but do not omit any essential components. Here are the key steps (remember, the necessary components are linked [above](#documentation)):
+I will ask you to write a tutorial page and a reference page. For reasons of time (and becaue this is simple package), we will skip "how-to" and "explanation." To save yourself time, you can be quite brief but do not omit any essential components. Here are the key steps (remember, documentation on the necessary components is linked [above](#documentation)):
 
 1. Create an empty file, `docs/src/tutorial.md`
 2. Title the "page" `# Tutorial`
@@ -140,7 +140,7 @@ I will ask you to write a tutorial page and a reference page. For reasons of tim
 
 4. List `tutorial.md` in the `make.jl` file. You don't (yet) need to make modifications to `index.md`.
 5. Also in `make.jl`, change the "timholy/CIandDocsExercise.jl" to "AdvancedScientificComputingInJuliaWashU/ci-and-docs-*" where you replace `*` with your user name (this should appear in the URL for this repository). **This is only needed because we're operating with GitHubClassroom, this is not something you'd do for a "normal" package.**
-6. Build the documentation. Here's a pretty safe way in VS Code (assuming you're in the package's environment to start with):
+6. Build the documentation. Here's a reliable way in VS Code (assuming you're in the package's environment to start with):
 
     ```julia
     julia> using CIandDocsExercise
@@ -154,10 +154,10 @@ I will ask you to write a tutorial page and a reference page. For reasons of tim
     julia> include("make.jl")
     ```
 
-7. View the docs in your browser (open `docs/build/index.html`). For now, you'll note that your reference material appears in `index.html`. (We'll fix that next.) Check that your tutorial looks roughly as intended. This might be a good place to make a commit.
+7. View the docs in your browser (open `docs/build/index.html`). For now, you'll note that your reference material appears in `index.html`. (We'll fix that next.) Check that your tutorial looks roughly as intended. This might be a good time to make a commit.
 8. Create a blank `reference.md`. Move the function-documentation currently in `index.md` to `reference.md` and give that page a title (I chose `# Reference`). Write a tiny bit of narrative text in `index.md` to explain what this package is about.
 9. Build your documentation again and check that it looks good.
-10. Add a `doctest` step to your tests to make sure your documentation doesn't inadvertently break. **Tip** If you get `UndefVarError` errors when running doctests, it's likely that the tests are running without loading your package. Consider using the syntax `jldoctest; setup=:(using CIandDocsExercise)` so that the test will first load the package without you including it in the example. (If you prefer to add it as a manual step in the example, that's fine too.)
+10. Add a `doctest` step to your tests to make sure your documentation doesn't inadvertently break. **Tip**: if you get `UndefVarError` errors when running doctests, it's likely that the tests are running without loading your package. Consider using the syntax `jldoctest; setup=:(using CIandDocsExercise)` so that the test will first load the package without you including it in the example. (If you prefer to add it as a manual step in the example, that's fine too.) See [setup code](https://juliadocs.github.io/Documenter.jl/stable/man/doctests/#Setup-Code) for more information.
 11. Once working, set up the secrets for deployment.
 12. In `deploydocs` (called from `make.jl`), turn on previews.
 13. Submit as a PR. Check that the doc build worked. *If you get doctest failures on an older Julia version but not on 1.6*: Julia changed the way it prints arrays in 1.6. This effects the outcome of some doctests. You may be able to fix this by adding `filter=r"(Vector{.*}|Array{.*})"` to your `jldoctest` line; see [filtering doctests](https://juliadocs.github.io/Documenter.jl/stable/man/doctests/#Filtering-Doctests) for more information. Once you have this working locally (i.e., you haven't broken anything!), add another commit and push again.
