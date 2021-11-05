@@ -132,9 +132,9 @@ For this problem, there are two additional requirements:
 
 Initially assuming the representation above, solve this problem as a sequence of steps described below. I will describe the functionality I want you to implement, but remember to implement and commit the tests first and then implement and commit the code needed to pass the tests you just committed:
 
-1. Given a graph and starting node, return the list of directly-connected neighbors. Remember, your tests should enforce the fact that a node is connected to itself whether or not the user-supplied representation lists it explicitly.
+1. Given a graph and starting node, return the list of directly-connected neighbors. Remember, your tests should enforce the fact that a node is connected to itself whether or not the user-supplied representation lists it explicitly: `i` should appear in the list of directly-connected neighbors of node `i`.
 2. Given a graph and starting node, return the list of all nodes reachable (directly or indirectly via hopping from neighbor to neighbor) from that node. Your code should use (i.e., call) the code you wrote in the first step. If you're unfamiliar with the programming concepts needed to solve this problem, a hint is that there are two roughly equivalent approaches: [recursion](https://en.wikipedia.org/wiki/Recursion#In_computer_science) and iteration, the latter typically via a [stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) or [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)). (Stacks tend to give you "depth-first search" and queues "breadth-first search"; if all this means nothing to you, it's likely that recursion will be the easier approach.)
-3. Identify all connected components of the graph. Your code should use the code you wrote above.
+3. Identify all connected components of the graph. Your code should use the code you wrote above. For directed graphs, use the notion of "weak" connectivity: two nodes are in the same component if either can be reached from the other.
 4. Generalize your code so that it also supports a graph supplied in *adjacency matrix format*, in which the graph above is represented as
 
 ```julia

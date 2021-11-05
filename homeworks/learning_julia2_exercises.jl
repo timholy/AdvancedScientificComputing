@@ -113,6 +113,7 @@ using Test
     @test MyInt(3) == 3
     @test 2 == MyInt(2)
     @test MyInt(1) != MyInt(2)   # this will follow automatically if you define `==`
+    @test MyInt(-2) == Int16(-2)
 
     # c) extend `+` so that `MyInt` "wraps around" at 5: `MyInt(5) + 1` return `MyInt(1)` and then it starts counting up again.
 
