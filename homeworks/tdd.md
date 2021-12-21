@@ -157,7 +157,7 @@ At the end, submit this as a pull request to GitHub and use CodeCov to check you
 
 ## A concept-encapsulation problem
 
-Here we're going to implement a computational analog of a simple mathematical concept, the [interval](https://en.wikipedia.org/wiki/Interval_(mathematics)). Your implementation should hew as much as possible to the mathematical notion, subject to the limitations of computers in mimicking mathematics. (E.g., floating-point numbers are an imperfect reflection of the mathematical concept of real-valued numbers.)  You can restrict your implementation to *closed intervals*.
+Here we're going to implement a computational analog of a simple mathematical concept, the [interval](https://en.wikipedia.org/wiki/Interval_(mathematics)). Your implementation should hew as much as possible to the mathematical notion, subject to the limitations of computers in mimicking mathematics. (E.g., floating-point numbers are an imperfect reflection of the mathematical concept of real-valued numbers.)  In particular, an interval differs from a range like `3:5` in that `3:5` contains only 3 items (3, 4, and 5), whereas an `Interval(3, 5)` would contain all real numbers between 3 and 5 (an infinite number of values). You can restrict your implementation to *closed intervals*.
 
 Perform this as a sequence of these steps. I will describe the functionality I want you to implement, but remember to implement the tests first and make (at least) two commits per step:
 
