@@ -17,3 +17,4 @@ Markdown files using a script with contents
 
 Example: `buildmd setup` where the script above is called `buildmd`.
 
+See [related resources](resources.md) for other courses and workshop with similar aims to this one.
