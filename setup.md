@@ -70,7 +70,7 @@ This will open a Julia REPL. You can quit this REPL with `exit()` or hitting Ctr
 
 # Optional tools
 
-Some people like Jupyter (the lectures will be delivered in Jupyter, using the [RISE](https://rise.readthedocs.io/en/stable/index.html) extension.
+Some people like Jupyter (the lectures will be delivered in Jupyter, using the [RISE](https://rise.readthedocs.io/en/stable/index.html) extension).
 
 Once we start using Git, you may find that VS Code's built-in Git extension is not quite everything you need.  One popular tool it [GitKraken](https://www.gitkraken.com/).
 
