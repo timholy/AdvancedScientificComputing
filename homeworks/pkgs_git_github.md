@@ -15,7 +15,7 @@ The most commonly-needed chapters are 1-3 and 6-8. There are also many online tu
 Finally, you can find a selection of videos on YouTube just by searching for `git`.
 Many of these seem excellent, and there are so many good ones that I won't pick out any `git`-specific videos in particular.
 A good broader perspective is [Complete Guide to Open Source - How to Contribute](https://www.youtube.com/watch?v=yzeVMecydCE),
-which covers git & GitHub but many other topics besides (corresponding [GitHub repo here](https://github.com/freeCodeCamp/how-to-contribute-to-open-source).
+which covers git & GitHub but many other topics besides (corresponding [GitHub repo here](https://github.com/freeCodeCamp/how-to-contribute-to-open-source)).
 
 You will find that different tutorials will train you in different tools; some focus on the command line, others use one of several graphical clients. The command line is certainly the most ubiquitous, and if you become a serious developer `git`'s command line interface is a must-know.
 However, in this nanocourse, many of you will probably be able to get by using the git support built into VS Code.
@@ -227,7 +227,7 @@ In the GitHub web interface, navigate to your partner's account and find xir `De
 
 #### Step 1b: `dev` your partner's package locally
 
-Back at the `julia> ` prompt, switch to your default environment by switching into package mode and using `activate`:
+Back at the `julia>` prompt, switch to your default environment by switching into package mode and using `activate`:
 
 ```julia
 (DemoPackageTEH) pkg> activate
@@ -438,14 +438,14 @@ So, the final problem of this homework is to find a Julia package lacking a modu
 You can "stake your claim" by posting to the class Slack, just to make sure you don't duplicate effort with someone else.
 Use the following steps:
 
-- identify a package that interests you but lacks a module docstring. Registered packages are listed [here](https://juliahub.com/ui/Search).
+- Identify a package that interests you but lacks a module docstring. Registered packages are listed [here](https://juliahub.com/ui/Search).
   You can also [browse organizations](https://julialang.org/community/organizations/) that may interest you.
   Check the package for signs of active maintenance as described in lecture; if it looks abandoned, pick a different package. (Don't worry, your grade only depends on submitting the PR and responding to any feedback you might receive; it does not depend on your PR being merged.)
 - Once you've identified an interesting package, see if it already has a module docstring. Probably the easiest way is to navigate to
   the package GitHub repo in your browser, view the main `src/SomePackageName.jl` file in the browser, and see whether there is an obvious module docstring.
 - `dev` the package and `add` the [ModuleDocstrings.jl](https://github.com/JuliaDocs/ModuleDocstrings.jl) package
--  Because it's possible to "attach" a docstring from inside the module itself, we should do one last check: load your chosen package at the `julia>` prompt and check for a module docstring directly (e.g., `using SomePackage` followed by `?SomePackage`). If you see nothing, you can be sure it lacks a module docstring. (If you see one, choose a different package.)
-- use `ModuleDocstrings` to generate a "starter" docstring for your package. Read the documentation for `ModuleDocstrings` to find out how.
-- open the package in VS Code, create a new branch, edit the new docstring until you are happy with it, stage, and commit.
+- Because it's possible to "attach" a docstring from inside the module itself, we should do one last check: load your chosen package at the `julia>` prompt and check for a module docstring directly (e.g., `using SomePackage` followed by `?SomePackage`). If you see nothing, you can be sure it lacks a module docstring. (If you see one, choose a different package.)
+- Use `ModuleDocstrings` to generate a "starter" docstring for your package. Read the documentation for `ModuleDocstrings` to find out how.
+- Open the package in VS Code, create a new branch, edit the new docstring until you are happy with it, stage, and commit.
   When you commit, the commit message could be short (e.g., "Add an overall module docstring"), but when you write the PR description, be sufficiently verbose that you explain to the maintainer what this is about. A nice demo showing what before and after look like for `?SomePackage` is probably the easiest way to persuade a maintainer that this is the kind of change xe wants. Submit your PR!
 - Check in on the PR every once in a while (at least daily initially, longer intervals if it languishes for a while) and respond to any feedback you get. (Make sure you have notifications turned on for your GitHub account.) If it goes for a prolonged period (say, more than a couple weeks) and its lack of attention is causing you problems, it's fine to make a post like "Friendly bump!" just to generate a notification to remind the maintainer of your PR.
