@@ -106,12 +106,12 @@ When creating Julia packages, there's a lovely tool called `PkgTemplates` that w
 3. VS Code should show you an empty folder. Click the [`git` icon](figures_pkgs_git_github/vscode_init.png) (along the left, see the one that is highlighted in white while all others are gray). Click "Initialize repository."
 4. Click the ["Files & folders" icon](figures_pkgs_git_github/vscode_new_file.png) and then click the "New File..." icon along the top of the explorer. Name the file "README.md".
 5. In the main editor window, add some content to "README.md". Here's what I added:
-```
-# My first local repository
+    ```
+    # My first local repository
 
-I created this on my local machine using VS Code.
-```
-Note that this is Markdown, as covered in a "GitHub skills" module.
+    I created this on my local machine using VS Code.
+    ```
+    Note that this is Markdown, as covered in a "GitHub skills" module.
 6. Go back to the `git` icon, which now should show 1 file with local changes. Next to `README.md` click the `+` to stage these changes. Enter `Add a README` as the commit message and click `Commit`.
 7. Click `Publish Branch`. Select `Publish to GitHub public repository`. If it succeeds you should see a button that will open the repository in your browser. Congrats, you've made a local commit and pushed it up to GitHub!
 8. Next, you'll see how to incorporate the latest updates, which we imagine might be from a pull request submitted by someone else. To simulate this, let's add a commit *on GitHub*: in your browser, click on the `README.md` file, click the pencil icon to edit it, and add a line like
