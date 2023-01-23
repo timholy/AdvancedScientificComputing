@@ -71,21 +71,54 @@ On the [GitHub Skills](https://skills.github.com/) page, complete the following 
 
 Starting with "Communicate using Markdown," you may encounter **a significant snafu that you'll need to fix manually**: you may not receive the promised pull request (PR). If this happens to you, fix it as follows:
 
-1. After clicking "Use this template" -> "Create a new repository" and completing the creation process (through clicking "Create repository from template"), you'll see your repository. Go to [Settings]((figures_pkgs_git_github/repo_settings.png) and then click [Actions](figures_pkgs_git_github/actions_prs.png) -> "General". Scroll down to the bottom and click "Allow GitHub Actions to create and approve pull requests" and click "Save."
-2. Go back to the main screen by clicking the name of the repository in the top left. Click [branches](figures_pkgs_git_github/branches.png) and then click the ["trash can" icon to the right of the new branch](figures_pkgs_git_github/delete_branch.png) (in this case, the "start markdown" branch).
-3. Go back to the main screen and click the [Actions tab](figures_pkgs_git_github/actions_tab.png). Click on the [failing action](figures_pkgs_git_github/failing_action.png), "Initial commit". In the upper right, click "Re-run jobs" -> "Re-run failed jobs". Approve the re-run and wait for the spinning yellow circle to turn green (yay) or red (boo). Annoyingly, for me it turned red, but this second failure does not seem to be anything major.
+1. After clicking "Use this template" → "Create a new repository" and completing the creation process (through clicking "Create repository from template"), you'll see your repository. Go to `Settings`:
 
-But the hassle doesn't end here: later I got an "Error: Looks like something went wrong" when trying to [edit the file](https://github.com/skills/communicate-using-markdown/issues/36). (Sheesh, GitHub!) The way I fixed this was:
-1. Open the pull request as instructed ("Pull requests" -> "Start learning markdown"), but then instead of going to the "Files changed" tab, I hit `.` on my keyboard. *This opens a web-browser version of VS Code* and is worth knowing about.
+    ![Settings](figures_pkgs_git_github/repo_settings.png)
+
+    and then click `Actions` → `General`:
+
+    ![Actions](figures_pkgs_git_github/actions_prs.png)
+
+    Scroll down to the bottom and click "Allow GitHub Actions to create and approve pull requests" and click "Save."
+2. Go back to the main screen by clicking the name of the repository in the top left. Click `branches`:
+
+    ![branches](figures_pkgs_git_github/branches.png)
+
+    and then click the "trash can" icon to the right of the new branch:
+
+    ![trash](figures_pkgs_git_github/delete_branch.png)
+
+    In this case, the "start markdown" branch.
+3. Go back to the main screen and click the `Actions tab`:
+
+    ![Actions tab](figures_pkgs_git_github/actions_tab.png)
+
+    Click on the failing action titled "Initial commit":
+
+    ![failing action](figures_pkgs_git_github/failing_action.png)
+
+    In the upper right, click "Re-run jobs" → "Re-run failed jobs". Approve the re-run and wait for the spinning yellow circle to turn green (yay) or red (boo). Annoyingly, for me it turned red, but this second failure does not seem to be anything major.
+
+But the hassle doesn't end here: a step or two later I got an "Error: Looks like something went wrong" when trying to [edit the file](https://github.com/skills/communicate-using-markdown/issues/36). (Sheesh, GitHub!) The way I fixed this was:
+1. Open the pull request as instructed ("Pull requests" → "Start learning markdown"), but then instead of going to the "Files changed" tab, I hit `.` on my keyboard. *This opens a web-browser version of VS Code* and is worth knowing about.
 2. Note (see lower left) that you're already on the `start-markdown` branch (because you opened it from the PR)
 3. In the edit pane, add some text to the file, e.g.,
+
     ```
     # Here is a header
 
     And this is not
     ```
-    You must enter this in the [right side of the split panes](figures_pkgs_git_github/vscode_online.png).
-4. Click the [git icon](figures_pkgs_git_github/vscode_online_commit.png), hover over `index.md`, click on the `+` to "Stage changes."
+
+  You must enter this in the right side of the split panes:
+
+  ![split panes](figures_pkgs_git_github/vscode_online.png)
+
+4. Click the `git` icon:
+
+    ![git icon](figures_pkgs_git_github/vscode_online_commit.png)
+
+   then hover over `index.md`, click on the `+` to "Stage changes."
 5. Enter a commit message. I used "Add a header"
 6. Click "Commit and push"
 7. Under the hamburger menu, click "Go to repository"
@@ -102,9 +135,17 @@ When creating Julia packages, there's a lovely tool called `PkgTemplates` that w
 ### Create a repository on your computer via VS Code
 
 1. Open a new VS Code window
-2. Click "File" -> "Open folder". Use your file browser to create an empty folder wherever you like to keep class work or source code.  For example, on Windows I entered "Homework1" as the folder name, selected that folder, and then clicked "Select Folder".
-3. VS Code should show you an empty folder. Click the [`git` icon](figures_pkgs_git_github/vscode_init.png) (along the left, see the one that is highlighted in white while all others are gray). Click "Initialize repository."
-4. Click the ["Files & folders" icon](figures_pkgs_git_github/vscode_new_file.png) and then click the "New File..." icon along the top of the explorer. Name the file "README.md".
+2. Click "File" → "Open folder". Use your file browser to create an empty folder wherever you like to keep class work or source code.  For example, on Windows I entered "Homework1" as the folder name, selected that folder, and then clicked "Select Folder".
+3. VS Code should show you an empty folder. Click the `git` icon
+
+    ![`git` icon](figures_pkgs_git_github/vscode_init.png)
+
+  (along the left, see the one that is highlighted in white while all others are gray). Click "Initialize repository."
+4. Click the "Files & folders" icon
+
+    !["Files & folders" icon](figures_pkgs_git_github/vscode_new_file.png)
+
+    and then click the "New File..." icon along the top of the explorer. Name the file "README.md".
 5. In the main editor window, add some content to "README.md". Here's what I added:
     ```
     # My first local repository
@@ -119,5 +160,9 @@ When creating Julia packages, there's a lovely tool called `PkgTemplates` that w
    But I added this line using my browser on GitHub.
    ```
    Click `Commit changes...`, add a commit message (I used `Add a note about remote development`), and click `Commit changes` (you can commit directly to the `main` branch).
-9. Switch back to VS Code. Note that the contents of `README.md` are behind the contents on GitHub. We'll "pull" the changes: click the [`Synchronize changes`](figures_pkgs_git_github/vscode_synchronize.png) button in the lower left and you should see the contents come up to date.
+9. Switch back to VS Code. Note that the contents of `README.md` are behind the contents on GitHub. We'll "pull" the changes: click the "Synchronize changes" button:
+
+  ![Synchronize changes](figures_pkgs_git_github/vscode_synchronize.png)
+
+  in the lower left and you should see the contents come up to date.
 10. Send the URL for this repository to the instructor for grading.
