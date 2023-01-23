@@ -10,6 +10,13 @@ output: pdf_document
 
 ## Technical material
 
+### PkgTemplates
+
+Julia packages are best started and cloned from within Julia itself.
+Remember that the Pkg.jl documentation (see the previous session) is good for general package-management questions,
+including when you want to contribute to an existing package.
+When starting your own package, the [PkgTemplates README](https://github.com/invenia/PkgTemplates.jl) and [documentation](https://invenia.github.io/PkgTemplates.jl/stable/user/) are thorough guides to your options.
+
 ### The `Test` library
 
 Julia's `Test` standard library is [documented here](https://docs.julialang.org/en/v1/stdlib/Test/#Basic-Unit-Tests).
