@@ -76,19 +76,19 @@ Starting with "Communicate using Markdown," you may encounter **a significant sn
 3. Go back to the main screen and click the [Actions tab](figures_pkgs_git_github/actions_tab.png). Click on the [failing action](figures_pkgs_git_github/failing_action.png), "Initial commit". In the upper right, click "Re-run jobs" -> "Re-run failed jobs". Approve the re-run and wait for the spinning yellow circle to turn green (yay) or red (boo). Annoyingly, for me it turned red, but this second failure does not seem to be anything major.
 
 But the hassle doesn't end here: later I got an "Error: Looks like something went wrong" when trying to [edit the file](https://github.com/skills/communicate-using-markdown/issues/36). (Sheesh, GitHub!) The way I fixed this was:
-- Open the pull request as instructed ("Pull requests" -> "Start learning markdown"), but then instead of going to the "Files changed" tab, I hit `.` on my keyboard. *This opens a web-browser version of VS Code* and is worth knowing about.
-- Note (see lower left) that you're already on the `start-markdown` branch (because you opened it from the PR)
-- In the edit pane, add some text to the file, e.g.,
-```
-# Here is a header
+1. Open the pull request as instructed ("Pull requests" -> "Start learning markdown"), but then instead of going to the "Files changed" tab, I hit `.` on my keyboard. *This opens a web-browser version of VS Code* and is worth knowing about.
+2. Note (see lower left) that you're already on the `start-markdown` branch (because you opened it from the PR)
+3. In the edit pane, add some text to the file, e.g.,
+    ```
+    # Here is a header
 
-And this is not
-```
-You must enter this in the [right side of the split panes](figures_pkgs_git_github/vscode_online.png).
-- Click the [git icon](figures_pkgs_git_github/vscode_online_commit.png), hover over `index.md`, click on the `+` to "Stage changes."
-- Enter a commit message. I used "Add a header"
-- Click "Commit and push"
-- Under the hamburger menu, click "Go to repository"
+    And this is not
+    ```
+    You must enter this in the [right side of the split panes](figures_pkgs_git_github/vscode_online.png).
+4. Click the [git icon](figures_pkgs_git_github/vscode_online_commit.png), hover over `index.md`, click on the `+` to "Stage changes."
+5. Enter a commit message. I used "Add a header"
+6. Click "Commit and push"
+7. Under the hamburger menu, click "Go to repository"
 
 Now you should be able to complete the remainder of the exercises as instructed.
 
@@ -115,8 +115,9 @@ Note that this is Markdown, as covered in a "GitHub skills" module.
 6. Go back to the `git` icon, which now should show 1 file with local changes. Next to `README.md` click the `+` to stage these changes. Enter `Add a README` as the commit message and click `Commit`.
 7. Click `Publish Branch`. Select `Publish to GitHub public repository`. If it succeeds you should see a button that will open the repository in your browser. Congrats, you've made a local commit and pushed it up to GitHub!
 8. Next, you'll see how to incorporate the latest updates, which we imagine might be from a pull request submitted by someone else. To simulate this, let's add a commit *on GitHub*: in your browser, click on the `README.md` file, click the pencil icon to edit it, and add a line like
-```
-But I added this line using my browser on GitHub.
-```
-Click `Commit changes...`, add a commit message (I used `Add a note about remote development`), and click `Commit changes` (you can commit directly to the `main` branch).
+   ```
+   But I added this line using my browser on GitHub.
+   ```
+   Click `Commit changes...`, add a commit message (I used `Add a note about remote development`), and click `Commit changes` (you can commit directly to the `main` branch).
 9. Switch back to VS Code. Note that the contents of `README.md` are behind the contents on GitHub. We'll "pull" the changes: click the [`Synchronize changes`](figures_pkgs_git_github/vscode_synchronize.png) button in the lower left and you should see the contents come up to date.
+10. Send the URL for this repository to the instructor for grading.
