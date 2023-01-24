@@ -21,8 +21,6 @@ You will find that different tutorials will train you in different tools; some f
 However, in this nanocourse, many of you will probably be able to get by using the git support built into VS Code.
 If you really get into trouble, the command-line or a more sophisticated graphical client is always there for you.
 
-*Optional*: this course recommends VS Code. If you're unfamiliar with it but plan to use it for the course, you'll want to learn about some of its features from [the documentation](https://code.visualstudio.com/docs); you'll particularly need [basic editing](https://code.visualstudio.com/docs/editor/codebasics), but it's a rich environment that offers lots of goodies, so it's worth getting to know it.
-
 # Homework
 
 There are 3 parts to this homework:
@@ -63,11 +61,31 @@ If `git` does things that annoy you (e.g., open up a strange editor you don't un
 
 ### Install & configure vscode
 
+*These instructions are copied from `setup.md`*
+
+Visual Studio Code (VS Code) is a modern, cross-platform, cross-language development environment. It is not required (you can use whatever editor you like), but it is recommended, and many assignments will give VS Code-specific instructions which you may have to perform by other means if you use a different editor.
+
+Install [VS Code from here](https://code.visualstudio.com/).
+
+To install the [extensions](https://code.visualstudio.com/docs/editor/extension-marketplace):
+
+- launch VS Code
+
+- click on the extension manager (in the vertical bar at the left):
+  ![extension-manager](figures_pkgs_git_github/vscode_extensions.png)
+
+- type `GitHub` in the search bar and install the "GitHub Pull Requests and Issues" extension
+
+- type `git` in the search bar and install the "Git History" extension
+
+Other useful extensions include `Jupyter` (for editing Jupyter notebooks) and the [remote-development extensions](https://code.visualstudio.com/docs/remote/remote-overview) (if you ever want to edit code on a different machine remotely).
+
+If you are not already familiar with VS Code, you should spend some time reading the documentation (see the "Docs" in the banner at the top of the VS Code page), particularly the [user interface](https://code.visualstudio.com/docs/getstarted/userinterface).  If you prefer [videos](https://code.visualstudio.com/docs/getstarted/introvideos), the first two ("Getting Started" and "Code Editing") would be the minimum needed to start.
+
+
 Visual Studio Code (VS Code) is the recommended editor & development environment for this course. You are welcome to use other tools if you prefer, but all instructions will be presented for VS Code.
 
 Visit the [VS Code installation page](https://code.visualstudio.com/) and download the current version for your platform. If you're unfamiliar with it, there were links to the documentation above in [Sources for learning].
-
-Some particularly useful [extensions](https://code.visualstudio.com/docs/editor/extension-marketplace) are `Jupyter` (to edit Jupyter notebooks) and some of the [remote-development extensions](https://code.visualstudio.com/docs/remote/remote-overview) (if you ever want to edit code on a different machine remotely). However, because VS Code now comes with builtin support for `git` and `GitHub`, you may not need any extensions until we get to Julia.
 
 ## Complete "GitHub Skills" modules
 

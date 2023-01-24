@@ -6,7 +6,7 @@ geometry: margin=1in
 output: pdf_document
 ---
 
-Your first task is to set up a development environment. Minimally, this includes Julia, VS Code, and its Julia extension, although the Julia-specific steps can be deferred until the second week.  Optionally, you might also be interested in Jupyter notebooks (the *Ju* is for Julia, the first language besides *py*thon to support notebooks), a good terminal & shell (for Windows users), and a standalone Git client.
+An important task is to set up a development environment. Minimally, this includes VS Code, Julia, VS Code's Julia extension. The Julia-specific steps can be deferred until the second week.  Optionally, you might also be interested in Jupyter notebooks (the *Ju* is for Julia, the first language besides *py*thon to support notebooks), a good terminal & shell (for Windows users), and a standalone Git client.
 
 The author is primarily a Linux user, and some advice for Windows and Macs may not be ideal; please provide feedback and help each other on the slack.
 
