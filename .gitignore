@@ -2,12 +2,14 @@ Manifest.toml
 lectures/*/.ipynb_checkpoints/*
 setup.pdf
 schedule_2021.pdf
+schedule_2023.pdf
 summary_and_syllabus.pdf
 lectures/intro/videos
 lectures/intro/linked_figures
 homeworks/learning_julia1.pdf
 homeworks/learning_julia2.pdf
 homeworks/pkgs_git_github.pdf
+homeworks/opensource_git_github.pdf
 homeworks/docs_ci_semver.pdf
 homeworks/tdd.pdf
 homeworks/TDD/
