@@ -168,7 +168,7 @@ When creating Julia packages, there's a lovely tool called `PkgTemplates` that w
 
     ![`git` icon](figures_pkgs_git_github/vscode_init.png)
 
-  (along the left, see the one that is highlighted in white while all others are gray). Click "Initialize repository."
+   (along the left, see the one that is highlighted in white while all others are gray). Click "Initialize repository."
 4. Click the "Files & folders" icon
 
     !["Files & folders" icon](figures_pkgs_git_github/vscode_new_file.png)
