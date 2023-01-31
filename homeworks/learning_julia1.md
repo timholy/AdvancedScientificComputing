@@ -84,10 +84,10 @@ In the wiki:
 - [The REPL](https://en.wikibooks.org/wiki/Introducing_Julia/The_REPL)
 - Modules and packages:
   + [Intro to modules and packages](https://en.wikibooks.org/wiki/Introducing_Julia/Modules_and_packages)
-  + [Pkg: getting started](https://pkgdocs.julialang.org/v1.6/getting-started/)
-  + [Pkg: managing packages](https://pkgdocs.julialang.org/v1.6/managing-packages/)
+  + [Pkg: getting started](https://pkgdocs.julialang.org/v1/getting-started)
+  + [Pkg: managing packages](https://pkgdocs.julialang.org/v1/managing-packages)
 
-  **Pro tip**: the two `Pkg` documentation pages were generated with [Documenter.jl](https://juliadocs.github.io/Documenter.jl/stable/), which we'll learn to use in the course. Importantly, all of the pages it produces have a little "Version" indicator in the lower left. For `Pkg`, make sure the version matches your Julia version (type `Base.VERSION` in the REPL if you're unsure).  If you're reading documentation on a specific package, it should match the package version you have installed (see `Pkg.status` or `pkg> status`).
+  **Pro tip**: the two `Pkg` documentation pages were generated with [Documenter.jl](https://juliadocs.github.io/Documenter.jl/stable/), which we'll learn to use in the course. Importantly, all of the pages it produces have a little "Version" indicator in the lower left. For `Pkg`, make sure the version matches your Julia version (type `Base.VERSION` in the REPL if you're unsure).  If you're reading documentation on a specific package, it should match the package version you have installed (see `Pkg.status` or `pkg> status`). If you're using a beta version of Julia, choose `dev`.
 - [Arrays and tuples](https://en.wikibooks.org/wiki/Introducing_Julia/Arrays_and_tuples)
 - [Strings and characters](https://en.wikibooks.org/wiki/Introducing_Julia/Strings_and_characters)
 - [Dictionaries and sets](https://en.wikibooks.org/wiki/Introducing_Julia/Dictionaries_and_sets)
