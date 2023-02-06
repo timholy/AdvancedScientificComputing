@@ -1,12 +1,12 @@
 ---
 title: "Learning Julia (Part 2)"
 author: Timothy E. Holy, Washington University in St. Louis
-date: Oct 5, 2021
+date: Feb 6, 2023
 geometry: margin=1in
 output: pdf_document
 ---
 
-# Learning for week 2
+# Learning Julia: week 2
 
 ## Main reading
 
@@ -112,7 +112,7 @@ julia> v1[1] === v2[1]
 true
 ```
 
-So it creates a new *outer* container, but then copies the *references* rather than duplicating the internal array. If you need to copy recursively, you can use `deepcopy`. Note, however, that `deepcopy` can cause significant concerns of its own; these are well-described in the [Python documentation](https://docs.python.org/3/library/copy.html) which uses the same names as Julia. In real code, it's almost always better to know what you are dealing with and what you're trying to accomplish, and then handle it by more careful `copy`ing.
+So it creates a new *outer* container, but then copies the *references* rather than duplicating the internal array. If you need to copy recursively, you can use `deepcopy`. Note, however, that `deepcopy` can cause significant concerns of its own; these are well-described in the [Python documentation](https://docs.python.org/3/library/copy.html) which uses the same names as Julia. In real code, it's almost always better to know what you are dealing with and what you're trying to accomplish, and then handle it by more careful `copy`ing. (In Julia, unlike Python, you can add your own methods to `Base.copy` and customize the behavior for any new types you create.)
 
 By understanding the issues, you can always get whatever behavior you actually want. For example, we could have created `y` like this:
 
@@ -154,7 +154,7 @@ julia> y
  [7]
 ```
 
-It should be noted that this doesn't happen in Matlab, because Matlab uses a technique "behind the scenes" known as [copy-on-write](https://en.wikipedia.org/wiki/Copy-on-write). This has the major advantage of preventing surprises like the one above, while also avoiding the worst performance costs of unnecessary copying. It has the major disadvantage of making it impossible to create functions that modify their inputs: in Matlab, you can't create a function like Julia's `push!` or any others with a `!`. You also can't create objects that "maintain their links" with others in a manner that supports mutation. Languages like Julia, Python, C, and many others therefore avoid copy-on-write.
+It should be noted that this doesn't happen in Matlab, because Matlab uses a technique "behind the scenes" known as [copy-on-write](https://en.wikipedia.org/wiki/Copy-on-write). This has the major *advantage* of preventing surprises like the one above, while also avoiding the worst performance costs of unnecessary copying. It has the major *disadvantage* of making it impossible to create functions that modify their inputs: in Matlab, you can't create a function like Julia's `push!` or any others with a `!`. (This is why it's slow to append to a vector in Matlab, but fast in Julia.) You also can't create objects that "maintain their links" with others in a manner that supports mutation. Most languages--including Julia, Python, and C--choose to avoid copy-on-write.
 
 ## Workflow tips
 
@@ -166,4 +166,4 @@ Some debugging tips:
 
 # Assignment for week 2
 
-The entire assignment is in the associated [`learning_julia2_exercises.jl`](learning_julia2_exercises.jl).
+The entire assignment is in the GitHubClassroom repository.
