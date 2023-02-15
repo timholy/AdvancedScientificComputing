@@ -1,7 +1,7 @@
 ---
 title: "Testing & principles of design"
 author: Timothy E. Holy, Washington University in St. Louis
-date: Oct 10, 2021
+date: February 15, 2023
 geometry: margin=1in
 output: pdf_document
 ---
@@ -17,6 +17,18 @@ Remember that the Pkg.jl documentation (see the previous session) is good for ge
 including when you want to contribute to an existing package.
 When starting your own package, the [PkgTemplates README](https://github.com/invenia/PkgTemplates.jl) and [documentation](https://invenia.github.io/PkgTemplates.jl/stable/user/) are thorough guides to your options.
 
+For this course, I recommend creating a template with the following settings:
+
+```julia
+tpl = Template(; plugins=[GitHubActions(), Codecov(), Documenter{GitHubActions}()])
+```
+
+The individual pieces of this are as follows:
+
+- The `GitHubActions()` plugin sets up your package for testing on GitHub. It will create a `.github/workflows/CI.yml` file; don't worry too much about what that file actually contains, we'll cover it in greater detail in the next session.
+- The `Codecov()` plugin sets up the package to report line-coverage data from tests to a site called CodeCov (more detail below)
+- The `Documenter` plugin creates a `docs/` folder that can be used to create web-ready documentation for your package. We'll cover that in more detail in the next session.
+
 ### The `Test` library
 
 Julia's `Test` standard library is [documented here](https://docs.julialang.org/en/v1/stdlib/Test/#Basic-Unit-Tests).
@@ -31,12 +43,6 @@ Julia options are described [here](https://docs.julialang.org/en/v1/manual/comma
 
 [CodeCov](https://about.codecov.io/) is a web service for inspecting code coverage data online and representing it graphically.
 You'll set up this service for use with your account so that you and others can easily check your coverage.
-
-Let's return to this PkgTemplates configuration line we introduced in the previous session:
-
-```julia
-tpl = Template(; plugins=[GitHubActions(), Codecov(), Documenter{GitHubActions}()])
-```
 
 The `Codecov()` part configures "GitHubActions" (more on that in the next session) to run your tests with Julia in coverage-collection mode, and then uses the [Coverage package](https://github.com/JuliaCI/Coverage.jl) to bundle up the coverage data in appropriate form for submission to Codecov. The data get stored in your personal Codecov account (for repositories you own) or ones associated with GitHub organizations (for repositories that are hosted within organizations). You can review the results at the Codecov site. If you turn on GitHub integration (see below), you'll also see reports within GitHub pull requests.
 
@@ -85,7 +91,7 @@ If you later add more tests ("whoops, I forgot to check if...") or modify existi
 
 ## Why am I being forced to do this?
 
-This lecture and homework focus on *process*, and so your development process is part of the assignment. In my personal experience, most people who come from a scientific background tend to underutilize structured testing, and the idea of writing the tests before the code seems entirely foreign.  If you want to be taken seriously as a coder, having good tests is starting to become *de rigueur*; you should henceforth expect to write tests for nearly all your code (and not just in this class).
+This lecture and homework focus on *process*, and so your development process is part of the assignment. In my personal experience, most people who come from a scientific background tend to underutilize structured testing, and the idea of writing the tests before the code seems entirely foreign.  By requiring you to write the tests before you write the code, I'm hoping you'll have a chance to experience some of the benefits (as well as some of the limitations) of this style of development.
 
 Regardless of whether writing tests *first* becomes a practice you later use routinely, occasionally, or never at all, my guess is that you'll learn most by trying it out. It can be frustrating and slower the first few times, but like most things your assessment of its merits and weaknesses shifts after you get over the initial learning curve. There's enough value in these ideas that you should give them a try.
 
@@ -100,7 +106,7 @@ Optionally (but recommended), [grant it access](https://github.com/apps/codecov)
 
 ### Create a package for your solutions to this homework
 
-Use PkgTemplates to create a local package named "TDD", using the default template [above](#codecov).
+Use PkgTemplates to create a local package named "TDD", using the default template [above](#PkgTemplates).
 Use the same procedures you used in the last assignment to sync the empty repository to your GitHub account.
 
 This "package" will be fairly unusual, because it will consist of two unrelated problems (and optionally, a third having some overlap with the second). For each problem, store the tests (in `test/`) in a file, and do the same for the source code in `src/`; for example, you might have `graph.jl` in both `src/` and `test/` for the problem on graphs, and `interval.jl` in both for the problem on intervals.
@@ -137,7 +143,7 @@ For this problem, there are two additional requirements:
 - The graph above is effectively an [undirected graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)#Types_of_graphs) because all the connections go both ways. However, note that I've chosen to represent it in a form that could also be used for *directed* graphs. Your tests should include at least one example of a directed graph that isn't symmetric, and your code needs to return correct results for both undirected and directed graphs.
 - Regardless of how the "user" represents the graph, nodes should be implicitly assumed to connect to themselves and your tests should enforce that result. (Self-connectivity is omitted from the representation in `graph` above.)
 
-Initially assuming the representation above, solve this problem as a sequence of steps described below. While Julia has excellent graph packages (e.g., [Graphs.jl](https://github.com/JuliaGraphs/Graphs.jl)), here I want you to design these algorithms yourself without the help of external packages. I will describe the functionality I want you to implement, but remember to implement and commit the tests first and then implement and commit the code needed to pass the tests you just committed:
+Initially assuming the representation above, solve this problem as a sequence of steps described below. While Julia has excellent graph packages (e.g., [Graphs.jl](https://github.com/JuliaGraphs/Graphs.jl)), here I want you to design these algorithms yourself without the help of external packages. I will describe the functionality I want you to implement, but remember to **implement and commit the tests first** and then implement and commit the code needed to pass the tests you just committed:
 
 1. Given a graph and starting node, return the list of directly-connected neighbors. Remember, your tests should enforce the fact that a node is connected to itself whether or not the user-supplied representation lists it explicitly: `i` should appear in the list of directly-connected neighbors of node `i`.
 2. Given a graph and starting node, return the list of all nodes reachable (directly or indirectly via hopping from neighbor to neighbor) from that node. Your code should use (i.e., call) the code you wrote in the first step. If you're unfamiliar with the programming concepts needed to solve this problem, a hint is that there are two roughly equivalent approaches: [recursion](https://en.wikipedia.org/wiki/Recursion#In_computer_science) and iteration, the latter typically via a [stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) or [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)). (Stacks tend to give you "depth-first search" and queues "breadth-first search"; if all this means nothing to you, it's likely that recursion will be the easier approach.)
