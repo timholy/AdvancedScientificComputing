@@ -16,36 +16,37 @@ Pkg allows you to distinguish between dependencies that are required to define y
 
 `Pkg.test` runs your tests in a "clean" environment decoupled from any other environment on your machine. This allows you to test whether the package depends on some special configuration on your machine. It is therefore different from `include("runtests.jl")` from within the REPL, which operates in whatever environment is active when you issue the command. It's worth noting that the test environment might be both more restrictive (it may lack packages you have installed in your default environment) and less restrictive (it may include packages in the `[extras]` section that you may not have installed).
 
-Because `Pkg.test` starts a fresh Julia session, it is not [Revise](https://github.com/timholy/Revise.jl)-compatible. To be able to use Revise while developing, [TestEnv.jl](https://github.com/JuliaTesting/TestEnv.jl) allows you to replicate the test environment while using the REPL. Using this package is highly recommended. **Tip**: if you edit the `Project.toml` file after creating a test environment, the changes may not be incorporated. You can just enter `TestEnv.activate("MyPkg")` a second time, and it will switch to a new test environment incorporating the changes (no need to restart Julia unless this changes package versions by more than Revise can handle).
+Because `Pkg.test` starts a fresh Julia session, it is not [Revise](https://github.com/timholy/Revise.jl)-compatible. To be able to use Revise while developing, [TestEnv.jl](https://github.com/JuliaTesting/TestEnv.jl) allows you to replicate the test environment while using the REPL. Using this package is highly recommended. **Tip**: if you edit the `Project.toml` file after creating a test environment, the changes may not be incorporated. You can execute `TestEnv.activate("MyPkg")` a second time, and it will switch to a new test environment incorporating the changes (no need to restart Julia unless this changes package versions by more than Revise can handle).
 
 ## Continuous integration (CI) via GitHub Actions
 
-There are numerous CI providers. In this course, we'll use one built-in to GitHub: GitHub Actions.
+There are numerous CI providers. In this course, we'll use one built-in to GitHub: GitHub Actions. (Before GitHub Actions existed, many Julia packages used a provider called *Travis*, and you may occasionally see references to it.)
+
 Here are a few links:
 
 - [overview](https://github.com/features/actions)
-- [julia-actions](https://github.com/julia-actions): useful actions for Julia packages
-- [YAML](https://en.wikipedia.org/wiki/YAML): the "language" used to write actions. If you're writing or heavily editing YAML files, you may find it helpful to install VS Code's YAML extension. (Note: GitHub Actions accepts some syntaxes that get [incorrectly flagged as invalid](https://github.com/SchemaStore/schemastore/issues/1899) by the extension.) The web editor for Actions (enter `.github/workflows` and click the pencil icon for individual files) also gives you visual feedback about what GitHub thinks might be wrong with your actions.
+- [julia-actions](https://github.com/orgs/julia-actions/repositories): useful actions for Julia packages
+- [YAML](https://en.wikipedia.org/wiki/YAML): the "language" used to write actions. If you're writing or heavily editing YAML files, you may find it helpful to install VS Code's YAML extension. The web editor for Actions (in the folder `.github/workflows`, click the pencil icon for individual files) also gives you visual feedback about what GitHub thinks might be wrong with your actions.
 - [Actions](https://docs.github.com/en/actions/learn-github-actions): main documentation for using & creating GitHub Actions
 
 ## Documentation
 
 Documentation has a major impact on adoption of your work. Writing good documentation is a learnable skill. One of the best sources I've found describes [four categories of documentation](https://documentation.divio.com/), and we will loosely use that framework in this course.
 
-Most Julia packages that contain documentation beyond the README create it using [Documenter.jl](https://juliadocs.github.io/Documenter.jl/stable/). By calling `PkgTemplates.Template` with the `Documenter` plugin, the basic `docs/` folder gets set up automatically for you; this allows you to skip certain portions of Documenter's own documentation. To save you some time, here are specific sections you'll need for the homework (read other sections as needed):
+For Julia packages that contain documentation beyond the README, most create it using [Documenter.jl](https://juliadocs.github.io/Documenter.jl/stable/). By calling `PkgTemplates.Template` with the `Documenter` plugin, the basic `docs/` folder gets set up automatically for you; this allows you to skip certain portions of Documenter's own documentation. To save you some time, here are specific sections you'll need for the homework (read other sections as needed):
 
 - [markdown reference](https://docs.julialang.org/en/v1/stdlib/Markdown/) in case you're still getting comfortable with Markdown
 - [adding docstrings](https://juliadocs.github.io/Documenter.jl/stable/man/guide/#Adding-Some-Docstrings)
 - [cross-referencing](https://juliadocs.github.io/Documenter.jl/stable/man/guide/#Cross-Referencing)
 - [pages in the sidebar](https://juliadocs.github.io/Documenter.jl/stable/man/guide/#Pages-in-the-Sidebar)
 - [doctests in REPL style](https://juliadocs.github.io/Documenter.jl/stable/man/doctests/#REPL-Examples)
-- [preserving data across doctests](https://juliadocs.github.io/Documenter.jl/stable/man/doctests/#Preserving-Definitions-Between-Blocks)
+- [preserving objects across doctests](https://juliadocs.github.io/Documenter.jl/stable/man/doctests/#Preserving-Definitions-Between-Blocks)
 - [doctests in testing](https://juliadocs.github.io/Documenter.jl/stable/man/doctests/#Doctesting-as-Part-of-Testing) so you notice if your docs break
-- [deployment](https://juliadocs.github.io/Documenter.jl/stable/man/hosting/#travis-ssh)
+- [deployment](https://juliadocs.github.io/Documenter.jl/stable/man/hosting/#travis-ssh) (Note this claims to be Travis-specific, but in fact it applies to GitHub Actions too, and the commands will guide you about where to enter secret data.)
 
 Optional documentation add-ons and alternatives:
 
-- [DocstringExtensions](https://juliadocs.github.io/DocStringExtensions.jl/stable/) provides convenient syntax for common tasks.
+- [DocstringExtensions](https://juliadocs.github.io/DocStringExtensions.jl/stable/) is a package providing convenient syntax for common tasks.
 - [Literate](https://fredrikekre.github.io/Literate.jl/v2/) allows you to weave together code and more extensive documentation and supports a variety of output formats.
 
 ## Semantic versioning
@@ -59,19 +60,17 @@ I recommend declaring both lower and upper bounds, i.e., use `DataFrames = "1"` 
 
 A typical workflow goes like this:
 
-1. `Pkg.add` the packages to the environment and get things working. Use this for both true dependencies and test-dependencies; both will be added to the `[deps]` section, but we'll fix that later.
-2. Check `Pkg.status` to determine what versions you are using and then manually add those to the `[compat]` section. You should add `[compat]` for all true dependencies, and optionally for test-dependencies, but be aware that adding test-dependency compatibility constraints applies to all users and not just during your testing. (Adding test dependencies to `[compat]` prioritizes test reliability; not adding them prioritizes installation flexibility for users who may not need to run your tests. I am not aware of any clear guidance as to which is better, so this may be mostly a matter of personal preference.) *Bounds on all true dependencies (those in `[deps]`) are required to register a package with Julia's general registry.*
-
-   You may not need to be specific about minor and/or patch versions, i.e., if you happen to be using `SomePkg v1.2.4`, then it's quite possible that `SomePkg = "1"` or `SomePkg = "1.2"` would suffice.
-3. For any test-dependencies, move the entry from `[deps]` to `[extras]` and [list them in the `Test` `[targets]`](https://pkgdocs.julialang.org/v1/creating-packages/#Test-specific-dependencies-in-Julia-1.0-and-1.1). Moving things from `[deps]` reduces the number of packages that Pkg will install when users `add` your package (the extras are added only upon running the tests).
+1. `Pkg.add` (equivalently: `pkg> add`) the packages to the environment and get things working. Use this for both true dependencies and test-dependencies; both will be added to the `[deps]` section, but we'll fix that later.
+2. Check `Pkg.status` to determine what versions you are using and then manually add these versions to the `[compat]` section. (Often you can generalize a bit: e.g., you may be running `v1.5.3` of a package, but in most cases any `v1.5` should be sufficient. I generally specify the "patch" number only if I know it's important, e.g., it contained a bug fix critical to the function of my package. Beware of generalizing too much and declaring compatibility with versions you haven't tested: `v1` *might* work, but `v1.5` would be a lot safer.) You should add `[compat]` for all true dependencies, and optionally for test-dependencies, but be aware that adding test-dependency compatibility constraints applies to all users and not just during your testing. (Adding test dependencies to `[compat]` prioritizes test reliability; not adding them prioritizes installation flexibility for users who may not need to run your tests. I am not aware of any clear guidance as to which is better, so this may be mostly a matter of personal preference.) *Bounds on all true dependencies (those in `[deps]`) are required to register a package with Julia's general registry.*
+3. For any test-only dependencies, move the entry from `[deps]` to `[extras]` and [list them in the `Test` `[targets]`](https://pkgdocs.julialang.org/v1/creating-packages/#Test-specific-dependencies-in-Julia-1.0-and-1.1). Moving things from `[deps]` reduces the number of packages that Pkg will install when users `add` your package (the extras are added only upon running the tests).
 
 Versioning is not just for packages: I often add `[compat]` bounds even to `Project.toml` files I create for local "scripts" (e.g., analyzing a particular data set), to increase the likelihood that this script will continue to be runnable in the future. (If desired, commit the `Manifest.toml` to the project's `git` history so that it becomes a permanent record of the exact versions you are using.)
 
 Tools for managing compatibility:
 
-- [CompatHelper](https://github.com/JuliaRegistries/CompatHelper.jl): stay up-to-date with your dependencies
-- [RegistryCompatTools](https://github.com/KristofferC/RegistryCompatTools.jl): determine which packages may be holding back a package you'd like to update
-- [LocalRegistry](https://github.com/GunnarFarneback/LocalRegistry.jl) if you are running your own (or your group's own) package registry.
+- [CompatHelper](https://github.com/JuliaRegistries/CompatHelper.jl): stay up-to-date with your dependencies by adding a `CompatHelper.yml` GitHub Action.
+- On older Julia versions, [RegistryCompatTools](https://github.com/KristofferC/RegistryCompatTools.jl): determine which packages may be holding back a package you'd like to update. But Julia 1.8 and higher include the `pkg> status --outdated` to get the same information.
+- [LocalRegistry](https://github.com/GunnarFarneback/LocalRegistry.jl) if you are running your own (or your group's own) package registry. This is relatively uncommon, but it can be useful if you or your lab have created a lot of packages that you haven't registered with the [General registry](https://github.com/JuliaRegistries/General). (For example, a "personal" registry can include private packages.) My lab has an example standalone registry: https://github.com/HolyLab/HolyLabRegistry. Our registry is public, but some of the packages it references are not.
 
 Finally, in cases of conflict, remember the [conflict-resolution documentation](https://pkgdocs.julialang.org/latest/managing-packages/#conflicts). Keeping environments "lean" ("developer tools" in your default environment, and separate environments for individual packages & projects) is the easiest way to reduce the frequency of such conflicts.  Remember that you can use `pkg> activate --temp` to play around with a new package without making it part of a particular reusable environment.
 
@@ -85,7 +84,7 @@ Then, activate the [Registrator app](https://github.com/JuliaRegistries/Registra
 
 ### When making a release
 
-Making a release is incredibly easy using the [app interface](https://github.com/JuliaRegistries/Registrator.jl#via-the-github-app): just bump the `version` in your `Project.toml` (you can make simple edits directly in your browser) and make a commit comment on GitHub. Be sure to check the general registry PR (after it has finished running its tests) for any constraints on the release.
+Making a release is incredibly easy using the [app interface](https://github.com/JuliaRegistries/Registrator.jl#via-the-github-app): just bump the `version` in your `Project.toml` (you can make simple edits directly in your browser) and make a commit comment on GitHub. A few moments later, you should see a second commment linking to a pull request in General. Be sure to check it (after it has finished running its tests) for any errors it detects, as these will block automatic merging and thus prevent you from registering the release.
 
 For major release events (new packages, important new functionality, or key breaking changes), posting an announcement on Julia discourse's [package announcements](https://discourse.julialang.org/c/package-announcements) is recommended.
 
