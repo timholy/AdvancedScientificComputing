@@ -20,6 +20,9 @@ Course videos from fall 2021 are hosted in my YouTube account in a dedicated pla
 
 For the exact lectures and homeworks that correspond to the YouTube videos, you can check out the `Fall2021` branch of this repository. Lectures (videos and presentation materials) and homeworks are linked in the [schedule](schedule/schedule_2021.md).
 
+Playlist updates:
+- (March 2023) The original ["Performance 1" video](https://youtu.be/Fq2BffZOabE) was [updated](https://youtu.be/Fq2BffZOabE) to take advantage of recent extensions to the [Cthulhu package](https://github.com/JuliaDebug/Cthulhu.jl). The playlist uses the newer video, but full adherence to the original version of this course may require the original video.
+
 # General tips
 
 ## Similar courses
